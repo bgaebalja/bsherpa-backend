@@ -56,3 +56,19 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task printProjectName {
+    doLast {
+        println project.name
+    }
+}
+
+task printProjectVersion {
+    doLast {
+        println version
+    }
+}
+
+jar {
+    enabled = false
+}
