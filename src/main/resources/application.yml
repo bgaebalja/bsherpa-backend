@@ -9,7 +9,7 @@ spring:
       suffix: .html
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    jdbc-url: jdbc:mariadb://mariadb-container:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+    jdbc-url: jdbc:mariadb://${BSHERPA_AWS_RDS_ENDPOINT}:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
     username: ${DB_USER_NAME}
     password: ${DB_USER_PASSWORD}
   jpa:
