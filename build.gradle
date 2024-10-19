@@ -21,7 +21,6 @@ dependencies {
     // spring boot
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.12'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.7.12'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.26'
@@ -30,6 +29,10 @@ dependencies {
     // json
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
     implementation 'org.json:json:20220924'
+
+    // springfox
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
     // data
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
