@@ -18,7 +18,7 @@ spring:
   datasource:
     master:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://${BSHERPA_AWS_RDS_ENDPOINT}:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
+      jdbc-url: jdbc:mariadb://${BSHERPA_RDS_ENDPOINT}:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
       username: ${DB_MASTER_USER_NAME}
       password: ${DB_MASTER_USER_PASSWORD}
     slave:
