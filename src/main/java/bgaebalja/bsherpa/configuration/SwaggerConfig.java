@@ -29,15 +29,23 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static bgaebalja.bsherpa.util.RequestConstant.*;
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    private static final String GROUP_NAME = "bsherpa";
+    private static final String BASE_PACKAGE = "bgaebalja.bsherpa";
+    private static final String TITLE = "B셀파 서버 API";
+    private static final String DESCRIPTION = "문제은행 서비스 B셀파의 서버 API입니다.";
+    private static final String VERSION = "1.0";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("green-jangteo")
+                .groupName(GROUP_NAME)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.firstone.greenjangteo"))
+                .apis(RequestHandlerSelectors.basePackage(BASE_PACKAGE))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo())
@@ -54,18 +62,18 @@ public class SwaggerConfig {
 
     private List<SecurityReference> defaultAuth() {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[0];
-        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+        return Arrays.asList(new SecurityReference(JWT, authorizationScopes));
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("JWT", "Authorization", "header");
+        return new ApiKey(JWT, AUTHORIZATION, HEADER);
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("그린장터 서버 API")
-                .description("친환경 마켓플레이스 프로젝트 그린장터의 서버 API입니다.")
-                .version("1.0")
+                .title(TITLE)
+                .description(DESCRIPTION)
+                .version(VERSION)
                 .build();
     }
 
