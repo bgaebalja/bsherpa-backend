@@ -18,12 +18,12 @@ spring:
   datasource:
     master:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://${BSHERPA_AWS_RDS_ENDPOINT}:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+      jdbc-url: jdbc:mariadb://${BSHERPA_AWS_RDS_ENDPOINT}:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
       username: ${DB_MASTER_USER_NAME}
       password: ${DB_MASTER_USER_PASSWORD}
     slave:
       driver-class-name: org.mariadb.jdbc.Driver
-      jdbc-url: jdbc:mariadb://mariadb-container:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8
+      jdbc-url: jdbc:mariadb://mariadb-container:3306/${PROJECT_NAME}?serverTimezone=UTC&characterEncoding=UTF-8&useUnicode=true
       username: ${DB_SLAVE_USER_NAME}
       password: ${DB_SLAVE_USER_PASSWORD}
   jpa:
@@ -46,6 +46,15 @@ spring:
     password: ${REDIS_PASSWORD}
 logging:
   config: classpath:logback-spring.xml
+cloud:
+  aws:
+    credentials:
+      access-key: ${BSHERPA_S3_ACCESS_KEY}
+      secret-key: ${BSHERPA_S3_SECRET_KEY}
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket-name: ${BSHERPA_S3_BUCKET_NAME}
 management:
   endpoints:
     web:
