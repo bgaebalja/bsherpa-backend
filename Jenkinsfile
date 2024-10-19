@@ -73,7 +73,11 @@ pipeline {
                         string(credentialsId: 'DB_SLAVE_USER_PASSWORD', variable: 'DB_SLAVE_USER_PASSWORD'),
                         string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
                         string(credentialsId: 'JWT_SECRET_KEY', variable: 'JWT_SECRET_KEY'),
-                        string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD')
+                        string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
+                        string(credentialsId: 'BSHERPA_RDS_ENDPOINT', variable: 'BSHERPA_RDS_ENDPOINT'),
+                        string(credentialsId: 'BSHERPA_S3_ACCESS_KEY', variable: 'BSHERPA_S3_ACCESS_KEY'),
+                        string(credentialsId: 'BSHERPA_S3_SECRET_KEY', variable: 'BSHERPA_S3_SECRET_KEY'),
+                        string(credentialsId: 'BSHERPA_S3_BUCKET_NAME', variable: 'BSHERPA_S3_BUCKET_NAME')
                     ]) {
                         sh '''
                         #!/bin/bash
@@ -92,6 +96,10 @@ pipeline {
                             export REDIS_PASSWORD='$REDIS_PASSWORD'
                             export JWT_SECRET_KEY='$JWT_SECRET_KEY'
                             export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'
+                            export BSHERPA_RDS_ENDPOINT='$BSHERPA_RDS_ENDPOINT'
+                            export BSHERPA_S3_ACCESS_KEY='$BSHERPA_S3_ACCESS_KEY'
+                            export BSHERPA_S3_SECRET_KEY='$BSHERPA_S3_SECRET_KEY'
+                            export BSHERPA_S3_BUCKET_NAME='$BSHERPA_S3_BUCKET_NAME'
 
                             docker stop \$PROJECT_NAME || true
                             docker rm \$PROJECT_NAME || true

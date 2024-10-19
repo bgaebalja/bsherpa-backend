@@ -37,8 +37,6 @@ services:
         condition: service_started
       redis:
         condition: service_started
-      elasticsearch:
-        condition: service_started
     environment:
       EC2_IP_FOR_BSHERPA: ${EC2_IP_FOR_BSHERPA}
       PROJECT_NAME: ${PROJECT_NAME}
@@ -52,6 +50,7 @@ services:
       SPRING_REDIS_PASSWORD: ${REDIS_PASSWORD}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       SSL_KEY_STORE_PASSWORD: ${SSL_KEY_STORE_PASSWORD}
+      BSHERPA_RDS_ENDPOINT: ${BSHERPA_RDS_ENDPOINT}
       BSHERPA_S3_ACCESS_KEY: ${BSHERPA_S3_ACCESS_KEY}
       BSHERPA_S3_SECRET_KEY: ${BSHERPA_S3_SECRET_KEY}
       BSHERPA_S3_BUCKET_NAME: ${BSHERPA_S3_BUCKET_NAME}
