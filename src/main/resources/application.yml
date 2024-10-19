@@ -55,6 +55,11 @@ cloud:
       static: ap-northeast-2
     s3:
       bucket-name: ${BSHERPA_S3_BUCKET_NAME}
+tsherpa:
+  api:
+    url: ${TSHERPA_API_URL}
+    get-items:
+      url: ${TSHERPA_API_GET_ITEMS_URL}
 management:
   endpoints:
     web:
