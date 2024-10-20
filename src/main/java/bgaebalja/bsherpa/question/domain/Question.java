@@ -20,9 +20,6 @@ public class Question extends BaseGeneralEntity {
     private Long itemId;
 
     @Column(nullable = false)
-    private String answerUrl;
-
-    @Column(nullable = false)
     private String descriptionUrl;
 
     // enum으로 저장
@@ -40,6 +37,9 @@ public class Question extends BaseGeneralEntity {
     private String answer;
 
     @Column(nullable = false)
+    private String answerUrl;
+
+    @Column(nullable = false)
     private int errorReportCount;
 
     @Column(nullable = false, columnDefinition = BOOLEAN_DEFAULT_FALSE)
@@ -51,26 +51,26 @@ public class Question extends BaseGeneralEntity {
 
     @Builder
     private Question(
-            Long itemId, String answerUrl, String descriptionUrl, QuestionType questionType,
-            Difficulty difficulty, String answer, Collection collection
+            Long itemId, String descriptionUrl, QuestionType questionType,
+            Difficulty difficulty, String answer, String answerUrl, Collection collection
     ) {
         this.itemId = itemId;
-        this.answerUrl = answerUrl;
         this.descriptionUrl = descriptionUrl;
         this.questionType = questionType;
         this.difficulty = difficulty;
         this.answer = answer;
+        this.answerUrl = answerUrl;
         this.collection = collection;
     }
 
     public static Question from(CreateQuestionRequest createQuestionRequest, Collection collection) {
         return Question.builder()
                 .itemId(FormatConverter.parseToLong(createQuestionRequest.getItemId()))
-                .answerUrl(createQuestionRequest.getAnswerUrl())
                 .descriptionUrl(createQuestionRequest.getDescriptionUrl())
                 .questionType(QuestionClassifier.classifyType(createQuestionRequest.getQuestionType()))
                 .difficulty(QuestionClassifier.classifyDifficulty(createQuestionRequest.getDifficulty()))
                 .answer(createQuestionRequest.getAnswer())
+                .answerUrl(createQuestionRequest.getAnswerUrl())
                 .collection(collection)
                 .build();
     }
