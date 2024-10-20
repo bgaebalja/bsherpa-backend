@@ -1,4 +1,4 @@
-package org.threefour.ddip.configuration;
+package bgaebalja.bsherpa.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
