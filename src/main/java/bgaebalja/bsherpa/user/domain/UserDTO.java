@@ -13,7 +13,7 @@ public class UserDTO extends User {
 
   private List<String> roles;
 
-  public UserDTO(String email, String password, List<String> roles) {
+  public UserDTO(String email, String password, String username, List<String> roles) {
     super(
         email,
         password,
