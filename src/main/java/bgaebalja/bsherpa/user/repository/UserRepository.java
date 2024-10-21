@@ -1,8 +1,10 @@
 package bgaebalja.bsherpa.user.repository;
 
+import bgaebalja.bsherpa.user.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
+
+  Users findByEmail(String email);
 
 }
