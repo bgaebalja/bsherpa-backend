@@ -1,4 +1,4 @@
-package bgaebalja.bsherpa.user;
+package bgaebalja.bsherpa.user.domain;
 
 import static lombok.AccessLevel.PROTECTED;
 
