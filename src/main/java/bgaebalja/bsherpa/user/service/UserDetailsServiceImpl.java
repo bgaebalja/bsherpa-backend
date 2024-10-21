@@ -28,6 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     return new UserDTO(
         loginUser.getEmail(),
         loginUser.getPassword(),
+        loginUser.getUsername(),
         loginUser.getRoles().stream().map(UserRole::getRole).collect(Collectors.toList())
     );
   }
