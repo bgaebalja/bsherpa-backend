@@ -2,6 +2,7 @@ package bgaebalja.bsherpa.client.itemimage;
 
 import bgaebalja.bsherpa.client.item.GetChapterItemsRequest;
 import bgaebalja.bsherpa.client.item.GetItemsRequest;
+import bgaebalja.bsherpa.client.item.GetItemsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -11,8 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import static bgaebalja.bsherpa.util.RequestConstant.APPLICATION_JSON;
-import static bgaebalja.bsherpa.util.RequestConstant.CONTENT_TYPE;
+import java.util.Map;
+
+import static bgaebalja.bsherpa.util.RequestConstant.*;
 
 @Component
 @RequiredArgsConstructor
@@ -27,6 +29,9 @@ public class ItemImageApiClient {
 
     @Value("${tsherpa.api.get-chapter-item-images.url}")
     private String getChapterItemImagesUrl;
+
+    @Value("${tsherpa.api.get-exam-item-images.url}")
+    private String getExamItemImagesUrl;
 
     public GetItemImagesResponse getItemImages(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemImagesUrl);
@@ -53,6 +58,24 @@ public class ItemImageApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<GetChapterItemsRequest> requestEntity = new HttpEntity<>(getChapterItemsRequest, headers);
+
+        ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemImagesResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemImagesResponse getExamItemImages(String examId) {
+        String url = String.format("%s/%s", tsherpaUrl, getExamItemImagesUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(EXAM_ID, examId), headers);
 
         ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
                 url,
