@@ -5,7 +5,8 @@ import static org.springframework.http.HttpStatus.OK;
 import bgaebalja.bsherpa.book.domain.BookResponse;
 import bgaebalja.bsherpa.book.service.BookService;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +30,15 @@ public class BookController {
       notes = GET_BOOKS_DESCRIPTION,
       response = BookResponse.class
   )
-  public ResponseEntity<List<BookResponse>> getAllBooks() {
+  public ResponseEntity getAllBooks() {
     bookService.getAllBooks();
-    return ResponseEntity.status(OK).body(bookService.getAllBooks());
+    return ResponseEntity.status(OK).body(new Result(bookService.getAllBooks()));
+  }
+
+  @Data
+  @AllArgsConstructor
+  static class Result<T>{
+    private T data;
   }
 
 }
