@@ -11,8 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
-import static bgaebalja.bsherpa.util.RequestConstant.APPLICATION_JSON;
-import static bgaebalja.bsherpa.util.RequestConstant.CONTENT_TYPE;
+import static bgaebalja.bsherpa.util.RequestConstant.*;
 
 @Component
 @RequiredArgsConstructor
@@ -33,8 +32,6 @@ public class ItemApiClient {
 
     @Value("${tsherpa.api.get-similar-items.url}")
     private String getSimilarItemsUrl;
-
-    private static final String EXAM_ID = "examId";
 
     public GetItemsResponse getItems(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemsUrl);
