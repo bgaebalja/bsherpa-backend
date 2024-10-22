@@ -30,9 +30,9 @@ public class BookController {
       notes = GET_BOOKS_DESCRIPTION,
       response = BookResponse.class
   )
-  public ResponseEntity getAllBooks() {
+  public ResponseEntity<?> getAllBooks() {
     bookService.getAllBooks();
-    return ResponseEntity.status(OK).body(new Result(bookService.getAllBooks()));
+    return ResponseEntity.status(OK).body(new Result<>(bookService.getAllBooks()));
   }
 
   @Data
