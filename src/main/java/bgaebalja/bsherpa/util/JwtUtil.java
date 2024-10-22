@@ -1,6 +1,6 @@
 package bgaebalja.bsherpa.util;
 
-import static java.nio.charset.StandardCharsets.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 import bgaebalja.bsherpa.exception.JwtCustomException;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -9,13 +9,13 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
-import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,8 @@ public class JwtUtil {
 
   private final Environment env;
 
-  private String key = env.getProperty("jwt.secret.key");
+  @Value("${jwt.secret.key}")
+  private String key;
 
   public  String generateToken(Map<String, Object> valueMap, int min) {
     SecretKey key = null;
