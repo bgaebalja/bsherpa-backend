@@ -3,12 +3,12 @@ package bgaebalja.bsherpa.security.handler;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import bgaebalja.bsherpa.user.domain.UserDTO;
+import bgaebalja.bsherpa.util.FormatConverter;
 import bgaebalja.bsherpa.util.JwtUtil;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
-import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,10 +31,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
 
-    int accessTokenExpirationTime = Integer.parseInt(
-        Objects.requireNonNull(env.getProperty("jwt.access-token.expiration-time")));
-    int refreshTokenExpirationTime = Integer.parseInt(
-        Objects.requireNonNull(env.getProperty("jwt.refresh-token.expiration-time")));
+    int accessTokenExpirationTime = FormatConverter.parseToInt(env.getProperty("jwt.access-token.expiration-time"));
+    int refreshTokenExpirationTime = FormatConverter.parseToInt(env.getProperty("jwt.refresh-token.expiration-time"));
 
     UserDTO userDTO = (UserDTO) authentication.getPrincipal();
     Map<String, Object> claims = userDTO.getClaims();
