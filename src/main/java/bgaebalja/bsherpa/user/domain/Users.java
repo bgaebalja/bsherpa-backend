@@ -37,7 +37,6 @@ public class Users extends BaseGeneralEntity {
   @Column(nullable = false)
   private String email;
 
-  @Builder.Default
   @ElementCollection(fetch = LAZY)
   @CollectionTable(name = "user_roles", joinColumns = {
       @JoinColumn(name = "user_id")
