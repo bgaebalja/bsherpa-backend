@@ -77,7 +77,7 @@ public class QuestionExternalController {
 
     @GetMapping("/similar-items")
     @ApiOperation(value = GET_SIMILAR_ITEMS_FROM_TSHERPA, notes = GET_SIMILAR_ITEMS_FROM_TSHERPA_DESCRIPTION)
-    public ResponseEntity<GetItemsResponse> getExamItemsFromTsherpa(
+    public ResponseEntity<GetItemsResponse> getSimilarItemsFromTsherpa(
             @ApiParam(value = TSHERPA_ITEM_IDS, defaultValue = TSHERPA_ITEM_IDS_EXAMPLE)
             @RequestParam List<String> itemIds,
             @ApiParam(value = TSHERPA_EXCLUDED_ITEM_IDS, defaultValue = TSHERPA_EXCLUDED_ITEM_IDS_EXAMPLE)
