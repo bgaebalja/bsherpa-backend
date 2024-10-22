@@ -79,6 +79,8 @@ tsherpa:
       url: ${TSHERPA_API_GET_EXAM_ITEM_IMAGES_URL}
     get-similar-items:
       url: ${TSHERPA_API_GET_SIMILAR_ITEMS_URL}
+    get-similar-items:
+      url: ${TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL}
 management:
   endpoints:
     web:

@@ -2,7 +2,7 @@ package bgaebalja.bsherpa.client.itemimage;
 
 import bgaebalja.bsherpa.client.item.GetChapterItemsRequest;
 import bgaebalja.bsherpa.client.item.GetItemsRequest;
-import bgaebalja.bsherpa.client.item.GetItemsResponse;
+import bgaebalja.bsherpa.client.item.GetSimilarItemsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -32,6 +32,9 @@ public class ItemImageApiClient {
 
     @Value("${tsherpa.api.get-exam-item-images.url}")
     private String getExamItemImagesUrl;
+
+    @Value("${tsherpa.api.get-similar-item-images.url}")
+    private String getSimilarItemImagesUrl;
 
     public GetItemImagesResponse getItemImages(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemImagesUrl);
@@ -76,6 +79,24 @@ public class ItemImageApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(EXAM_ID, examId), headers);
+
+        ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemImagesResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemImagesResponse getSimilarItemImages(GetSimilarItemsRequest getSimilarItemsRequest) {
+        String url = String.format("%s/%s", tsherpaUrl, getSimilarItemImagesUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<GetSimilarItemsRequest> requestEntity = new HttpEntity<>(getSimilarItemsRequest, headers);
 
         ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
                 url,
