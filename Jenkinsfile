@@ -83,7 +83,7 @@ pipeline {
                         string(credentialsId: 'TSHERPA_API_URL', variable: 'TSHERPA_API_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_ITEMS_URL', variable: 'TSHERPA_API_GET_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL'),
-                        string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEMS_URL', variable: 'TSHERPA_API_GET_EXAM_ITEMS_URL')
+                        string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEMS_URL', variable: 'TSHERPA_API_GET_EXAM_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL', variable: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL')
                     ]) {
                         sh '''
