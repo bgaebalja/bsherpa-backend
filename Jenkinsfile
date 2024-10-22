@@ -82,7 +82,7 @@ pipeline {
                         string(credentialsId: 'BSHERPA_S3_BUCKET_NAME', variable: 'BSHERPA_S3_BUCKET_NAME'),
                         string(credentialsId: 'TSHERPA_API_URL', variable: 'TSHERPA_API_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_ITEMS_URL', variable: 'TSHERPA_API_GET_ITEMS_URL'),
-                        string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL')
+                        string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEMS_URL', variable: 'TSHERPA_API_GET_EXAM_ITEMS_URL')
                     ]) {
                         sh '''
