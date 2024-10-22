@@ -72,7 +72,9 @@ pipeline {
                         string(credentialsId: 'BSHERPA_DB_SLAVE_USER_NAME', variable: 'DB_SLAVE_USER_NAME'),
                         string(credentialsId: 'BSHERPA_DB_SLAVE_PASSWORD', variable: 'DB_SLAVE_USER_PASSWORD'),
                         string(credentialsId: 'REDIS_PASSWORD', variable: 'REDIS_PASSWORD'),
-                        string(credentialsId: 'JWT_SECRET_KEY', variable: 'JWT_SECRET_KEY'),
+                        string(credentialsId: 'BSHERPA_JWT_SECRET_KEY', variable: 'BSHERPA_JWT_SECRET_KEY'),
+                        string(credentialsId: 'BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME', variable: 'BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME'),
+                        string(credentialsId: 'BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME', variable: 'BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME'),
                         string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
                         string(credentialsId: 'BSHERPA_RDS_ENDPOINT', variable: 'BSHERPA_RDS_ENDPOINT'),
                         string(credentialsId: 'BSHERPA_S3_ACCESS_KEY', variable: 'BSHERPA_S3_ACCESS_KEY'),
@@ -96,7 +98,9 @@ pipeline {
                             export DB_SLAVE_USER_NAME='$DB_SLAVE_USER_NAME'
                             export DB_SLAVE_USER_PASSWORD='$DB_SLAVE_USER_PASSWORD'
                             export REDIS_PASSWORD='$REDIS_PASSWORD'
-                            export JWT_SECRET_KEY='$JWT_SECRET_KEY'
+                            export BSHERPA_JWT_SECRET_KEY='$BSHERPA_JWT_SECRET_KEY'
+                            export BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME='$BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME'
+                            export BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME='$BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME'
                             export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'
                             export BSHERPA_RDS_ENDPOINT='$BSHERPA_RDS_ENDPOINT'
                             export BSHERPA_S3_ACCESS_KEY='$BSHERPA_S3_ACCESS_KEY'

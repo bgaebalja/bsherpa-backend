@@ -46,6 +46,13 @@ spring:
     password: ${REDIS_PASSWORD}
 logging:
   config: classpath:logback-spring.xml
+jwt:
+  secret:
+    key: ${BSHERPA_JWT_SECRET_KEY}
+  access-token:
+    expiration-time: ${BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME}
+  refresh-token:
+    expiration-time: ${BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME}
 cloud:
   aws:
     credentials:
