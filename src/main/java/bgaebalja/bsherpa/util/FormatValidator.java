@@ -10,12 +10,12 @@ import static bgaebalja.bsherpa.exception.ExceptionMessage.INVALID_ID_EXCEPTION_
 import static bgaebalja.bsherpa.util.RegularExpressionConstant.POSITIVE_INTEGER_PATTERN;
 
 public class FormatValidator {
-    public static void validateId(String id) {
-        if (!hasValue(id)) {
+    public static void validatePositiveInteger(String positiveInteger) {
+        if (!hasValue(positiveInteger)) {
             throw new IdNoValueException(ID_NO_VALUE_EXCEPTION_MESSAGE);
         }
-        if (!isValid(id, POSITIVE_INTEGER_PATTERN)) {
-            throw new InvalidIdException(String.format(INVALID_ID_EXCEPTION_MESSAGE, id));
+        if (!isValid(positiveInteger, POSITIVE_INTEGER_PATTERN)) {
+            throw new InvalidIdException(String.format(INVALID_ID_EXCEPTION_MESSAGE, positiveInteger));
         }
     }
 

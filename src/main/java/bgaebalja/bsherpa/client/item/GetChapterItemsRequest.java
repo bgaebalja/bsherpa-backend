@@ -22,11 +22,11 @@ public class GetChapterItemsRequest {
     private List<MinorClassficationRequest> minorClassification;
 
     @ApiModelProperty(value = LEVEL_COUNT_VALUE, example = LEVEL_COUNT_EXAMPLE)
-    private List<Integer> levelCnt;
+    private List<String> levelCnt;
 
     @ApiModelProperty(value = QUESTION_FORM_VALUE, example = QUESTION_FORM_EXAMPLE)
     private String questionForm;
 
     @ApiModelProperty(value = ACTIVITY_CATEGORY_LIST_VALUE, example = ACTIVITY_CATEGORY_LIST_EXAMPLE)
-    private List<Integer> activityCategoryList;
+    private List<String> activityCategoryList;
 }

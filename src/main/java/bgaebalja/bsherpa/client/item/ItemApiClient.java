@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 import static bgaebalja.bsherpa.util.RequestConstant.APPLICATION_JSON;
 import static bgaebalja.bsherpa.util.RequestConstant.CONTENT_TYPE;
 
@@ -25,6 +27,11 @@ public class ItemApiClient {
 
     @Value("${tsherpa.api.get-chapter-items.url}")
     private String getChapterItemsUrl;
+
+    @Value("${tsherpa.api.get-exam-items.url}")
+    private String getExamItemsUrl;
+
+    private static final String EXAM_ID = "examId";
 
     public GetItemsResponse getItems(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemsUrl);
@@ -51,6 +58,24 @@ public class ItemApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<GetChapterItemsRequest> requestEntity = new HttpEntity<>(getChapterItemsRequest, headers);
+
+        ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemsResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemsResponse getExamItems(String examId) {
+        String url = String.format("%s/%s", tsherpaUrl, getExamItemsUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(EXAM_ID, examId), headers);
 
         ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
                 url,
