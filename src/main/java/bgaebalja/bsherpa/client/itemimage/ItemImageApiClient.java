@@ -1,5 +1,6 @@
 package bgaebalja.bsherpa.client.itemimage;
 
+import bgaebalja.bsherpa.client.item.GetChapterItemsRequest;
 import bgaebalja.bsherpa.client.item.GetItemsRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,9 @@ public class ItemImageApiClient {
     @Value("${tsherpa.api.get-item-images.url}")
     private String getItemImagesUrl;
 
+    @Value("${tsherpa.api.get-chapter-item-images.url}")
+    private String getChapterItemImagesUrl;
+
     public GetItemImagesResponse getItemImages(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemImagesUrl);
 
@@ -31,6 +35,24 @@ public class ItemImageApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<GetItemsRequest> requestEntity = new HttpEntity<>(getItemsRequest, headers);
+
+        ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemImagesResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemImagesResponse getChapterItemImages(GetChapterItemsRequest getChapterItemsRequest) {
+        String url = String.format("%s/%s", tsherpaUrl, getChapterItemImagesUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<GetChapterItemsRequest> requestEntity = new HttpEntity<>(getChapterItemsRequest, headers);
 
         ResponseEntity<GetItemImagesResponse> responseEntity = restTemplate.exchange(
                 url,
