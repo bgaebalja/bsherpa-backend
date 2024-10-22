@@ -81,7 +81,8 @@ pipeline {
                         string(credentialsId: 'BSHERPA_S3_SECRET_KEY', variable: 'BSHERPA_S3_SECRET_KEY'),
                         string(credentialsId: 'BSHERPA_S3_BUCKET_NAME', variable: 'BSHERPA_S3_BUCKET_NAME'),
                         string(credentialsId: 'TSHERPA_API_URL', variable: 'TSHERPA_API_URL'),
-                        string(credentialsId: 'TSHERPA_API_GET_ITEMS_URL', variable: 'TSHERPA_API_GET_ITEMS_URL')
+                        string(credentialsId: 'TSHERPA_API_GET_ITEMS_URL', variable: 'TSHERPA_API_GET_ITEMS_URL'),
+                        string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL')
                     ]) {
                         sh '''
                         #!/bin/bash
@@ -108,6 +109,7 @@ pipeline {
                             export BSHERPA_S3_BUCKET_NAME='$BSHERPA_S3_BUCKET_NAME'
                             export TSHERPA_API_URL='$TSHERPA_API_URL'
                             export TSHERPA_API_GET_ITEMS_URL='$TSHERPA_API_GET_ITEMS_URL'
+                            export TSHERPA_API_GET_CHAPTER_ITEMS_URL='$TSHERPA_API_GET_CHAPTER_ITEMS_URL'
 
                             docker stop \$PROJECT_NAME || true
                             docker rm \$PROJECT_NAME || true

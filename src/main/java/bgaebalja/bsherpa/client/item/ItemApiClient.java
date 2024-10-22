@@ -23,6 +23,9 @@ public class ItemApiClient {
     @Value("${tsherpa.api.get-items.url}")
     private String getItemsUrl;
 
+    @Value("${tsherpa.api.get-chapter-items.url}")
+    private String getChapterItemsUrl;
+
     public GetItemsResponse getItems(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemsUrl);
 
@@ -30,6 +33,24 @@ public class ItemApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<GetItemsRequest> requestEntity = new HttpEntity<>(getItemsRequest, headers);
+
+        ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemsResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemsResponse getChapterItems(GetChapterItemsRequest getChapterItemsRequest) {
+        String url = String.format("%s/%s", tsherpaUrl, getChapterItemsUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<GetChapterItemsRequest> requestEntity = new HttpEntity<>(getChapterItemsRequest, headers);
 
         ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
                 url,
