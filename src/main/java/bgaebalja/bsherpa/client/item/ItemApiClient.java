@@ -31,6 +31,9 @@ public class ItemApiClient {
     @Value("${tsherpa.api.get-exam-items.url}")
     private String getExamItemsUrl;
 
+    @Value("${tsherpa.api.get-similar-items.url}")
+    private String getSimilarItemsUrl;
+
     private static final String EXAM_ID = "examId";
 
     public GetItemsResponse getItems(GetItemsRequest getItemsRequest) {
@@ -76,6 +79,24 @@ public class ItemApiClient {
         headers.set(CONTENT_TYPE, APPLICATION_JSON);
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(EXAM_ID, examId), headers);
+
+        ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemsResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemsResponse getSimilarItems(GetSimilarItemsRequest getSimilarItemsRequest) {
+        String url = String.format("%s/%s", tsherpaUrl, getSimilarItemsUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<GetSimilarItemsRequest> requestEntity = new HttpEntity<>(getSimilarItemsRequest, headers);
 
         ResponseEntity<GetItemsResponse> responseEntity = restTemplate.exchange(
                 url,

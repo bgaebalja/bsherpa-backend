@@ -12,7 +12,7 @@ public class GetItemsRequest {
         this.itemIdList = itemIdList;
     }
 
-    public static GetItemsRequest from(List<String> itemIds) {
+    public static GetItemsRequest of(List<String> itemIds) {
         return new GetItemsRequest(itemIds);
     }
 }
