@@ -33,6 +33,9 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     if (path.startsWith("/users/")) {
       return true;
     }
+    if (path.startsWith("/books")) {
+      return true;
+    }
     //false 체크한다
     return false;
   }
