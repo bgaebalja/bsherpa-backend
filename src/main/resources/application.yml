@@ -67,6 +67,8 @@ tsherpa:
     url: ${TSHERPA_API_URL}
     get-items:
       url: ${TSHERPA_API_GET_ITEMS_URL}
+    get-item-images:
+      url: ${TSHERPA_API_GET_ITEM_IMAGES_URL}
     get-chapter-items:
       url: ${TSHERPA_API_GET_CHAPTER_ITEMS_URL}
     get-exam-items:
