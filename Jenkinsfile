@@ -84,6 +84,7 @@ pipeline {
                         string(credentialsId: 'TSHERPA_API_GET_ITEMS_URL', variable: 'TSHERPA_API_GET_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_ITEM_IMAGES_URL', variable: 'TSHERPA_API_GET_ITEM_IMAGES_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEMS_URL'),
+                        string(credentialsId: 'TSHERPA_API_GET_CHAPTER_ITEM_IMAGES_URL', variable: 'TSHERPA_API_GET_CHAPTER_ITEM_IMAGES_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEMS_URL', variable: 'TSHERPA_API_GET_EXAM_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL', variable: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL')
                     ]) {
@@ -114,6 +115,7 @@ pipeline {
                             export TSHERPA_API_GET_ITEMS_URL='$TSHERPA_API_GET_ITEMS_URL'
                             export TSHERPA_API_GET_ITEM_IMAGES_URL='$TSHERPA_API_GET_ITEM_IMAGES_URL'
                             export TSHERPA_API_GET_CHAPTER_ITEMS_URL='$TSHERPA_API_GET_CHAPTER_ITEMS_URL'
+                            export TSHERPA_API_GET_CHAPTER_ITEM_IMAGES_URL='$TSHERPA_API_GET_CHAPTER_ITEM_IMAGES_URL'
                             export TSHERPA_API_GET_EXAM_ITEMS_URL='$TSHERPA_API_GET_EXAM_ITEMS_URL'
                             export TSHERPA_API_GET_SIMILAR_ITEMS_URL='$TSHERPA_API_GET_SIMILAR_ITEMS_URL'
 
