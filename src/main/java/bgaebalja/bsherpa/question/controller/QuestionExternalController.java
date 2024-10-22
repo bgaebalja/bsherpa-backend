@@ -1,6 +1,9 @@
 package bgaebalja.bsherpa.question.controller;
 
 import bgaebalja.bsherpa.client.item.*;
+import bgaebalja.bsherpa.client.itemimage.GetItemCountsRequest;
+import bgaebalja.bsherpa.client.itemimage.GetItemCountsResponse;
+import bgaebalja.bsherpa.client.itemimage.ItemImageApiClient;
 import bgaebalja.bsherpa.util.FormatValidator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,6 +20,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class QuestionExternalController {
     private final ItemApiClient itemApiClient;
+    private final ItemImageApiClient itemImageApiClient;
 
     private static final String GET_ITEMS_FROM_TSHERPA = "T셀파의 문제 목록 조회";
     private static final String GET_ITEMS_FROM_TSHERPA_DESCRIPTION
@@ -40,6 +44,11 @@ public class QuestionExternalController {
             = "문제 ID 목록과 제외할 문제 ID 목록을 입력해 T셀파의 유사 문제 목록을 조회할 수 있습니다.";
     private static final String TSHERPA_EXCLUDED_ITEM_IDS = "T셀파의 제외할 문제 ID 목록";
     private static final String TSHERPA_EXCLUDED_ITEM_IDS_EXAMPLE = "206643, 259853";
+
+    private static final String GET_ITEM_COUNTS_FROM_TSHERPA = "T셀파의 소단원과 토픽단원 별 문제 수 목록 조회";
+    private static final String GET_ITEM_COUNTS_FROM_TSHERPA_DESCRIPTION
+            = "문제 수 조회 양식을 입력해 T셀파의 소단원과 토픽단원 별 문제 수 목록을 조회할 수 있습니다.";
+    private static final String GET_ITEM_COUNTS_FROM_TSHERPA_FORM = "소단원과 토픽단원 별 문제 수 목록 조회 양식";
 
     @GetMapping()
     @ApiOperation(value = GET_ITEMS_FROM_TSHERPA, notes = GET_ITEMS_FROM_TSHERPA_DESCRIPTION)
@@ -89,5 +98,20 @@ public class QuestionExternalController {
         return ResponseEntity.status(OK).body(
                 itemApiClient.getSimilarItems(GetSimilarItemsRequest.of(itemIds, excludedItemIds))
         );
+    }
+
+    @PostMapping("/counts")
+    @ApiOperation(value = GET_ITEM_COUNTS_FROM_TSHERPA, notes = GET_ITEM_COUNTS_FROM_TSHERPA_DESCRIPTION)
+    public ResponseEntity<GetItemCountsResponse> getImageCountsFromTsherpa(
+            @ApiParam(value = GET_ITEM_COUNTS_FROM_TSHERPA_FORM)
+            @RequestBody GetItemCountsRequest getItemCountsRequest
+    ) {
+        FormatValidator.validatePositiveInteger(getItemCountsRequest.getCurriculumCode());
+        FormatValidator.validatePositiveInteger(getItemCountsRequest.getSubjectId());
+        FormatValidator.validatePositiveInteger(getItemCountsRequest.getLargeChapterId());
+        FormatValidator.validatePositiveInteger(getItemCountsRequest.getMediumChapterId());
+        FormatValidator.validatePositiveInteger(getItemCountsRequest.getSmallChapterId());
+
+        return ResponseEntity.status(OK).body(itemImageApiClient.getItemCounts(getItemCountsRequest));
     }
 }

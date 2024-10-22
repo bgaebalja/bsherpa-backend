@@ -36,6 +36,9 @@ public class ItemImageApiClient {
     @Value("${tsherpa.api.get-similar-item-images.url}")
     private String getSimilarItemImagesUrl;
 
+    @Value("${tsherpa.api.get-item-counts.url}")
+    private String getItemCountsUrl;
+
     public GetItemImagesResponse getItemImages(GetItemsRequest getItemsRequest) {
         String url = String.format("%s/%s", tsherpaUrl, getItemImagesUrl);
 
@@ -103,6 +106,24 @@ public class ItemImageApiClient {
                 HttpMethod.POST,
                 requestEntity,
                 GetItemImagesResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetItemCountsResponse getItemCounts(GetItemCountsRequest getItemCountsRequest) {
+        String url = String.format("%s/%s", tsherpaUrl, getItemCountsUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<GetItemCountsRequest> requestEntity = new HttpEntity<>(getItemCountsRequest, headers);
+
+        ResponseEntity<GetItemCountsResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetItemCountsResponse.class
         );
 
         return responseEntity.getBody();

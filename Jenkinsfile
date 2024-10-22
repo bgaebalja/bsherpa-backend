@@ -88,7 +88,8 @@ pipeline {
                         string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEMS_URL', variable: 'TSHERPA_API_GET_EXAM_ITEMS_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_EXAM_ITEM_IMAGES_URL', variable: 'TSHERPA_API_GET_EXAM_ITEM_IMAGES_URL'),
                         string(credentialsId: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL', variable: 'TSHERPA_API_GET_SIMILAR_ITEMS_URL'),
-                        string(credentialsId: 'TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL', variable: 'TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL')
+                        string(credentialsId: 'TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL', variable: 'TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL'),
+                        string(credentialsId: 'TSHERPA_API_GET_ITEM_COUNTS_URL', variable: 'TSHERPA_API_GET_ITEM_COUNTS_URL')
                     ]) {
                         sh '''
                         #!/bin/bash
@@ -122,6 +123,7 @@ pipeline {
                             export TSHERPA_API_GET_EXAM_ITEM_IMAGES_URL='$TSHERPA_API_GET_EXAM_ITEM_IMAGES_URL'
                             export TSHERPA_API_GET_SIMILAR_ITEMS_URL='$TSHERPA_API_GET_SIMILAR_ITEMS_URL'
                             export TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL='$TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL'
+                            export TSHERPA_API_GET_ITEM_COUNTS_URL='$TSHERPA_API_GET_ITEM_COUNTS_URL'
 
                             docker stop \$PROJECT_NAME || true
                             docker rm \$PROJECT_NAME || true
