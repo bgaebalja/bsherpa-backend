@@ -81,6 +81,8 @@ tsherpa:
       url: ${TSHERPA_API_GET_SIMILAR_ITEMS_URL}
     get-similar-item-images:
       url: ${TSHERPA_API_GET_SIMILAR_ITEM_IMAGES_URL}
+    get-item-counts:
+      url: ${TSHERPA_API_GET_ITEM_COUNTS_URL}
 management:
   endpoints:
     web:
