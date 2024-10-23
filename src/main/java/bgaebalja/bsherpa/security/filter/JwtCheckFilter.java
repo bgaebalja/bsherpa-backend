@@ -42,9 +42,6 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     if (path.startsWith("/question-images")) {
       return true;
     }
-    if (path.startsWith("/chapters")) {
-      return true;
-    }
     if (path.startsWith("/swagger-ui/") ||
         path.startsWith("/v2/api-docs") ||
         path.startsWith("/configuration/security")||
