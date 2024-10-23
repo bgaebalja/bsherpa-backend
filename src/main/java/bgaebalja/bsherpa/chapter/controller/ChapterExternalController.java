@@ -2,6 +2,7 @@ package bgaebalja.bsherpa.chapter.controller;
 
 import bgaebalja.bsherpa.client.chapter.ChapterApiClient;
 import bgaebalja.bsherpa.client.chapter.GetChaptersResponse;
+import bgaebalja.bsherpa.client.chapter.GetEvaluationsResponse;
 import bgaebalja.bsherpa.util.FormatValidator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,20 +21,37 @@ import static org.springframework.http.HttpStatus.OK;
 public class ChapterExternalController {
     private final ChapterApiClient chapterApiClient;
 
-    private static final String GET_CHAPTERS_FROM_TSHERPA = "T셀파의 교재 별 단원 목록 조회";
-    private static final String GET_CHAPTERS_FROM_TSHERPA_DESCRIPTION
+    private static final String GET_SUBJECT_CHAPTERS_FROM_TSHERPA = "T셀파의 교재 별 단원 목록 조회";
+    private static final String GET_SUBJECT_CHAPTERS_FROM_TSHERPA_DESCRIPTION
             = "교재 ID를 입력해 T셀파의 교재 별 단원 목록을 조회할 수 있습니다.";
     private static final String TSHERPA_SUBJECT_ID = "T셀파의 교재 ID";
     private static final String TSHERPA_SUBJECT_ID_EXAMPLE = "1136";
 
+    private static final String GET_SUBJECT_EVALUATIONS_FROM_TSHERPA = "T셀파의 교재 별 평가 영역 목록 조회";
+    private static final String GET_SUBJECT_EVALUATIONS_FROM_TSHERPA_DESCRIPTION
+            = "교재 ID를 입력해 T셀파의 교재 별 평가 영역 목록을 조회할 수 있습니다.";
+
     @GetMapping()
-    @ApiOperation(value = GET_CHAPTERS_FROM_TSHERPA, notes = GET_CHAPTERS_FROM_TSHERPA_DESCRIPTION)
-    public ResponseEntity<GetChaptersResponse> getItemsFromTsherpa(
+    @ApiOperation(value = GET_SUBJECT_CHAPTERS_FROM_TSHERPA, notes = GET_SUBJECT_CHAPTERS_FROM_TSHERPA_DESCRIPTION)
+    public ResponseEntity<GetChaptersResponse> getSubjectChpatersFromTsherpa(
             @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
             @RequestParam String subjectId
     ) {
         FormatValidator.validatePositiveInteger(subjectId);
 
         return ResponseEntity.status(OK).body(chapterApiClient.getChapters(subjectId));
+    }
+
+    @GetMapping("/evaluations")
+    @ApiOperation(
+            value = GET_SUBJECT_EVALUATIONS_FROM_TSHERPA, notes = GET_SUBJECT_EVALUATIONS_FROM_TSHERPA_DESCRIPTION
+    )
+    public ResponseEntity<GetEvaluationsResponse> getSubjectEvaluationsFromTsherpa(
+            @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
+            @RequestParam String subjectId
+    ) {
+        FormatValidator.validatePositiveInteger(subjectId);
+
+        return ResponseEntity.status(OK).body(chapterApiClient.getEvaluations(subjectId));
     }
 }
