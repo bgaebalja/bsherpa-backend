@@ -1,4 +1,44 @@
 package bgaebalja.bsherpa.client.chapter;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+
+import static bgaebalja.bsherpa.util.RequestConstant.*;
+
+@Component
+@RequiredArgsConstructor
 public class ChapterApiClient {
+    private final RestTemplate restTemplate;
+
+    @Value("${tsherpa.api.url}")
+    private String tsherpaUrl;
+
+    @Value("${tsherpa.api.get-chapters.url}")
+    private String getChaptersUrl;
+
+    public GetChaptersResponse getChapters(String subjectId) {
+        String url = String.format("%s/%s", tsherpaUrl, getChaptersUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(SUBJECT_ID, subjectId), headers);
+
+        ResponseEntity<GetChaptersResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetChaptersResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
 }
