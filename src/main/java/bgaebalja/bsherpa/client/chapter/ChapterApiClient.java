@@ -24,6 +24,9 @@ public class ChapterApiClient {
     @Value("${tsherpa.api.get-chapters.url}")
     private String getChaptersUrl;
 
+    @Value("${tsherpa.api.get-evaluations.url}")
+    private String getEvaluationsUrl;
+
     public GetChaptersResponse getChapters(String subjectId) {
         String url = String.format("%s/%s", tsherpaUrl, getChaptersUrl);
 
@@ -37,6 +40,24 @@ public class ChapterApiClient {
                 HttpMethod.POST,
                 requestEntity,
                 GetChaptersResponse.class
+        );
+
+        return responseEntity.getBody();
+    }
+
+    public GetEvaluationsResponse getEvaluations(String subjectId) {
+        String url = String.format("%s/%s", tsherpaUrl, getEvaluationsUrl);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(CONTENT_TYPE, APPLICATION_JSON);
+
+        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(Map.of(SUBJECT_ID, subjectId), headers);
+
+        ResponseEntity<GetEvaluationsResponse> responseEntity = restTemplate.exchange(
+                url,
+                HttpMethod.POST,
+                requestEntity,
+                GetEvaluationsResponse.class
         );
 
         return responseEntity.getBody();
