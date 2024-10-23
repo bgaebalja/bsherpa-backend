@@ -1,5 +1,6 @@
 package bgaebalja.bsherpa.book.domain;
 
+import bgaebalja.bsherpa.subject.domain.Subject;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,11 +23,11 @@ public class BookResponse {
   private String bookName;
 
   @ApiModelProperty(value = SUBJECT_ID_VALUE, example = SUBJECT_ID_EXAMPLE)
-  private String subjectId;
+  private Long subjectId;
 
   public BookResponse(Book book) {
     this.bookId = book.getBookId();
-    this.bookName = book.getBookName();
-    this.subjectId = book.getSubjectId();
+    this.bookName = book.getName();
+    this.subjectId = book.getSubject().getId();
   }
 }
