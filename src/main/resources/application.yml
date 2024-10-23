@@ -91,6 +91,8 @@ tsherpa:
       url: ${TSHERPA_API_GET_BOOK_EXAMS_URL}
     get-exam-preview:
       url: ${TSHERPA_API_GET_EXAM_PREVIEW_URL}
+    get-exam-item-classification-preview:
+      url: ${TSHERPA_API_GET_EXAM_ITEM_CLASSIFICATION_PREVIEW_URL}
 management:
   endpoints:
     web:
