@@ -1,6 +1,5 @@
 package bgaebalja.bsherpa.book.domain;
 
-import bgaebalja.bsherpa.subject.domain.Subject;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,21 +12,31 @@ public class BookResponse {
   private static final String BOOK_NAME_VALUE = "교재명";
   private static final String NAME_EXAMPLE = "수학1-1";
 
-  private static final String SUBJECT_ID_VALUE = "과목 ID";
-  private static final String SUBJECT_ID_EXAMPLE = "1111";
+  private static final String SUBJECT_CODE_VALUE = "과목 CODE";
+  private static final String SUBJECT_CODE_EXAMPLE = "1111";
+
+  private static final String SUBJECT_NAME_VALUE = "과목명";
+  private static final String SUBJECT_NAME_EXAMPLE = "1111";
 
   @ApiModelProperty(value = BOOK_ID_VALUE, example = BOOK_ID_EXAMPLE)
-  private String bookId;
+  private String subjectId;
 
   @ApiModelProperty(value = BOOK_NAME_VALUE, example = NAME_EXAMPLE)
   private String bookName;
 
-  @ApiModelProperty(value = SUBJECT_ID_VALUE, example = SUBJECT_ID_EXAMPLE)
-  private Long subjectId;
+  private String author;
+
+  @ApiModelProperty(value = SUBJECT_CODE_VALUE, example = SUBJECT_CODE_EXAMPLE)
+  private String subjectCode;
+
+  @ApiModelProperty(value = SUBJECT_NAME_VALUE, example = SUBJECT_NAME_EXAMPLE)
+  private String subjectName;
 
   public BookResponse(Book book) {
-    this.bookId = book.getBookId();
-    this.bookName = book.getName();
-    this.subjectId = book.getSubject().getId();
+    subjectId = book.getBookId();
+    bookName = book.getName();
+    author = book.getAuthor();
+    subjectCode = book.getSubject().getCode();
+    subjectName = book.getSubject().getName();
   }
 }
