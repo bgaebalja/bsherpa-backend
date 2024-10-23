@@ -87,6 +87,8 @@ tsherpa:
       url: ${TSHERPA_API_GET_CHAPTERS_URL}
     get-book:
       url: ${TSHERPA_API_GET_BOOK_URL}
+    get-book-exams:
+      url: ${TSHERPA_API_GET_BOOK_EXAMS_URL}
 management:
   endpoints:
     web:
