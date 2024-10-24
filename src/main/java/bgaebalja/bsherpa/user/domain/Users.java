@@ -35,7 +35,7 @@ public class Users extends BaseGeneralEntity {
   private String password;
 
   @Column(nullable = false)
-  private String email;
+  private String userId;
 
   @Builder.Default
   @ElementCollection(fetch = LAZY)
@@ -48,7 +48,7 @@ public class Users extends BaseGeneralEntity {
     Users user = Users.builder()
         .username(username)
         .password(password)
-        .email(email)
+        .userId(email)
         .build();
     user.getRoles().add(new UserRole("CREATOR"));
     return user;
