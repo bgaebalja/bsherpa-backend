@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http.cors().and()
+    http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.NEVER)
         .and()
@@ -69,8 +69,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration
         .setAllowedOriginPatterns
-            (List.of(
-                "*"
+            (Arrays.asList(
+                "https://bsherpa.com",
+                "http://localhost:5173",
+                "https://ddipddipddip.s3.amazonaws.com"
             ));
     configuration.setAllowedMethods(Arrays.asList(GET.name(), POST.name(), PUT.name(),
         PATCH.name(), DELETE.name(), OPTIONS.name()));
