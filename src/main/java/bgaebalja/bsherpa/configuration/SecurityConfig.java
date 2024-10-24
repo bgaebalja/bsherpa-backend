@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration
-        .setAllowedOriginPatterns
+        .setAllowedOrigins
             (Arrays.asList(
                 "https://bsherpa.com",
                 "http://localhost:5173",
@@ -83,4 +83,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
+
 }
