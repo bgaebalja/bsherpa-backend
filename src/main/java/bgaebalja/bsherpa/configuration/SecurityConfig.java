@@ -21,52 +21,43 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
-@EnableMethodSecurity
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final JwtUtil jwtUtil;
   private final Environment env;
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.cors(httpSecurityCorsConfigurer -> {
-      httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
-    });
-
-    http.sessionManagement(httpSecuritySessionManagementConfigurer -> {
-      httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.NEVER);
-    });
-
-    http.csrf(AbstractHttpConfigurer::disable);
-    http.formLogin(formLoginConfigurer -> {
-      formLoginConfigurer.loginPage("/users/login");
-      formLoginConfigurer.successHandler(new LoginSuccessHandler(jwtUtil,env));
-      formLoginConfigurer.failureHandler(new LoginFailureHandler());
-    });
-
-    http.addFilterBefore(new JwtCheckFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
-    http.exceptionHandling(config -> {
-      config.accessDeniedHandler(new CustomAccessDeniedHandler());
-    });
-
-    return http.build();
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.cors().and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.NEVER)
+        .and()
+        .csrf().disable()
+        .formLogin()
+        .loginPage("/users/login")
+        .successHandler(new LoginSuccessHandler(jwtUtil, env))
+        .failureHandler(new LoginFailureHandler())
+        .and()
+        .addFilterBefore(new JwtCheckFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+        .accessDeniedHandler(new CustomAccessDeniedHandler());
   }
-
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -75,20 +66,15 @@ public class SecurityConfig {
 
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
-
     CorsConfiguration configuration = new CorsConfiguration();
-
-    configuration.setAllowedOriginPatterns(List.of("*"));
-    configuration.setAllowedMethods(Arrays.asList(GET.toString(), POST.toString(),
-                                                  PUT.toString(),PATCH.toString(),
-                                                  DELETE.toString(), OPTIONS.toString()));
+    configuration.setAllowedOriginPatterns(Arrays.asList("https://bsherpa.com","http://localhost:5173"));
+    configuration.setAllowedMethods(Arrays.asList(GET.name(), POST.name(), PUT.name(),
+        PATCH.name(), DELETE.name(), OPTIONS.name()));
     configuration.setAllowedHeaders(List.of(AUTHORIZATION, CACHE_CONTROL, CONTENT_TYPE));
     configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
-
     return source;
   }
-
 }
