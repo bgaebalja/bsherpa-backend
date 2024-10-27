@@ -15,7 +15,7 @@ public class GetChapterItemsRequest {
     private static final String QUESTION_FORM_VALUE = "문제 유형";
     private static final String QUESTION_FORM_EXAMPLE = "multiple,subjective";
 
-    private static final String ACTIVITY_CATEGORY_LIST_VALUE = "정답 URL";
+    private static final String ACTIVITY_CATEGORY_LIST_VALUE = "평가 영역 ID 목록";
     private static final String ACTIVITY_CATEGORY_LIST_EXAMPLE = "[441, 439]";
 
     @ApiModelProperty(value = MINOR_CLASSIFICATION_VALUE)
