@@ -41,7 +41,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
   redis:
-    host: redis-container
+    host: ${BSHERPA_REDIS_CONTAINER_NAME}
     port: 6379
     password: ${REDIS_PASSWORD}
 logging:
