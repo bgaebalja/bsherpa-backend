@@ -66,6 +66,9 @@ pipeline {
                 script {
                     withCredentials([
                         sshUserPrivateKey(credentialsId: 'EC2_DEPLOY_KEY_FOR_BSHERPA', keyFileVariable: 'EC2_DEPLOY_KEY_FOR_BSHERPA'),
+                        string(credentialsId: 'BSHERPA_RDS_ENDPOINT', variable: 'BSHERPA_RDS_ENDPOINT'),
+                        string(credentialsId: 'BSHERPA_SLAVE_DB_CONTAINER_NAME', variable: 'BSHERPA_SLAVE_DB_CONTAINER_NAME'),
+                        string(credentialsId: 'BSHERPA_REDIS_CONTAINER_NAME', variable: 'BSHERPA_REDIS_CONTAINER_NAME'),
                         string(credentialsId: 'DB_ROOT_PASSWORD', variable: 'DB_ROOT_PASSWORD'),
                         string(credentialsId: 'BSHERPA_DB_MASTER_USER_NAME', variable: 'DB_MASTER_USER_NAME'),
                         string(credentialsId: 'BSHERPA_DB_MASTER_PASSWORD', variable: 'DB_MASTER_USER_PASSWORD'),
@@ -76,7 +79,6 @@ pipeline {
                         string(credentialsId: 'BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME', variable: 'BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME'),
                         string(credentialsId: 'BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME', variable: 'BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME'),
                         string(credentialsId: 'SSL_KEY_STORE_PASSWORD', variable: 'SSL_KEY_STORE_PASSWORD'),
-                        string(credentialsId: 'BSHERPA_RDS_ENDPOINT', variable: 'BSHERPA_RDS_ENDPOINT'),
                         string(credentialsId: 'BSHERPA_S3_ACCESS_KEY', variable: 'BSHERPA_S3_ACCESS_KEY'),
                         string(credentialsId: 'BSHERPA_S3_SECRET_KEY', variable: 'BSHERPA_S3_SECRET_KEY'),
                         string(credentialsId: 'BSHERPA_S3_BUCKET_NAME', variable: 'BSHERPA_S3_BUCKET_NAME'),
@@ -106,6 +108,9 @@ pipeline {
                             export PROJECT_NAME='${PROJECT_NAME}'
                             export PROJECT_VERSION='${PROJECT_VERSION}'
                             export DOCKER_HUB_USER_NAME='${DOCKER_HUB_USER_NAME}'
+                            export BSHERPA_RDS_ENDPOINT='$BSHERPA_RDS_ENDPOINT'
+                            export BSHERPA_SLAVE_DB_CONTAINER_NAME='$BSHERPA_SLAVE_DB_CONTAINER_NAME'
+                            export BSHERPA_REDIS_CONTAINER_NAME='$BSHERPA_REDIS_CONTAINER_NAME'
                             export DB_ROOT_PASSWORD='$DB_ROOT_PASSWORD'
                             export DB_MASTER_USER_NAME='$DB_MASTER_USER_NAME'
                             export DB_MASTER_USER_PASSWORD='$DB_MASTER_USER_PASSWORD'
@@ -116,7 +121,6 @@ pipeline {
                             export BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME='$BSHERPA_ACCESS_TOKEN_EXPIRATION_TIME'
                             export BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME='$BSHERPA_REFRESH_TOKEN_EXPIRATION_TIME'
                             export SSL_KEY_STORE_PASSWORD='$SSL_KEY_STORE_PASSWORD'
-                            export BSHERPA_RDS_ENDPOINT='$BSHERPA_RDS_ENDPOINT'
                             export BSHERPA_S3_ACCESS_KEY='$BSHERPA_S3_ACCESS_KEY'
                             export BSHERPA_S3_SECRET_KEY='$BSHERPA_S3_SECRET_KEY'
                             export BSHERPA_S3_BUCKET_NAME='$BSHERPA_S3_BUCKET_NAME'
