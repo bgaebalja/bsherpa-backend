@@ -108,9 +108,6 @@ public class QuestionExternalController {
     ) {
         FormatValidator.validatePositiveInteger(getItemCountsRequest.getCurriculumCode());
         FormatValidator.validatePositiveInteger(getItemCountsRequest.getSubjectId());
-        FormatValidator.validatePositiveInteger(getItemCountsRequest.getLargeChapterId());
-        FormatValidator.validatePositiveInteger(getItemCountsRequest.getMediumChapterId());
-        FormatValidator.validatePositiveInteger(getItemCountsRequest.getSmallChapterId());
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getItemCounts(getItemCountsRequest));
     }
