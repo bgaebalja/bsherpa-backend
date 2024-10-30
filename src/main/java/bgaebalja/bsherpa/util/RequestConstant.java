@@ -7,6 +7,8 @@ public class RequestConstant {
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String APPLICATION_JSON = "application/json";
 
+    public static final String ID_EXAMPLE = "1";
+
     public static final String EXAM_ID = "examId";
     public static final String SUBJECT_ID = "subjectId";
 }

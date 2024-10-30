@@ -1,6 +1,7 @@
 package bgaebalja.bsherpa.util;
 
 import bgaebalja.bsherpa.exception.*;
+import bgaebalja.bsherpa.file.domain.TargetType;
 
 import static bgaebalja.bsherpa.exception.ExceptionMessage.*;
 
@@ -46,6 +47,14 @@ public class FormatConverter {
         }
 
         return Boolean.parseBoolean(value);
+    }
+
+    public static TargetType parseToTargetType(String targetType) {
+        try {
+            return TargetType.valueOf(targetType);
+        } catch (IllegalArgumentException iae) {
+            throw new InvalidTargetTypeException(String.format(INVALID_TARGET_TYPE_EXCEPTION_MESSAGE, targetType));
+        }
     }
 
     public static String sanitizeFileName(String filename) {
