@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -28,12 +29,12 @@ public class Step1Controller {
 
     private final ChapterApiClient chapterApiClient;
 
-    @PostMapping("step1/chapters")
-    public GetChaptersResponse getChapters(){
-
+    @PostMapping("step1/chapters/{bookId}")
+    public GetChaptersResponse getChapters(@PathVariable String bookId){
+      log.info("Get chapters:  " + bookId);
       //StepRequestDTO dto = new StepRequestDTO();
       //dto.setSubjectId("1154");
-      return  chapterApiClient.getChapters("1154");
+      return  chapterApiClient.getChapters(bookId);
 
 
     }
