@@ -44,7 +44,7 @@ public class BookExternalController {
             @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
             @RequestParam String subjectId
     ) {
-        FormatValidator.validatePositiveInteger(subjectId);
+        FormatValidator.validatePositiveOrZeroInteger(subjectId);
 
         return ResponseEntity.status(OK).body(chapterApiClient.getBook(subjectId));
     }
@@ -55,7 +55,7 @@ public class BookExternalController {
             @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
             @RequestParam String subjectId
     ) {
-        FormatValidator.validatePositiveInteger(subjectId);
+        FormatValidator.validatePositiveOrZeroInteger(subjectId);
 
         return ResponseEntity.status(OK).body(chapterApiClient.getChapters(subjectId));
     }
@@ -68,7 +68,7 @@ public class BookExternalController {
             @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
             @RequestParam String subjectId
     ) {
-        FormatValidator.validatePositiveInteger(subjectId);
+        FormatValidator.validatePositiveOrZeroInteger(subjectId);
 
         return ResponseEntity.status(OK).body(chapterApiClient.getEvaluations(subjectId));
     }
@@ -79,7 +79,7 @@ public class BookExternalController {
             @ApiParam(value = TSHERPA_SUBJECT_ID, example = TSHERPA_SUBJECT_ID_EXAMPLE)
             @RequestParam String subjectId
     ) {
-        FormatValidator.validatePositiveInteger(subjectId);
+        FormatValidator.validatePositiveOrZeroInteger(subjectId);
 
         return ResponseEntity.status(OK).body(chapterApiClient.getExams(subjectId));
     }

@@ -39,7 +39,7 @@ public class Users extends BaseGeneralEntity {
 
   @Builder.Default
   @ElementCollection(fetch = LAZY)
-  @CollectionTable(name = "user_roles", joinColumns = {
+  @CollectionTable(name = "user_role", joinColumns = {
       @JoinColumn(name = "user_id")
   })
   private List<UserRole> roles = new ArrayList<>();
