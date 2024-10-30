@@ -48,6 +48,9 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     if (path.startsWith("/step1/chapters")) {
       return true;
     }
+    if (path.startsWith("/error-reports")) {
+      return true;
+    }
     if (path.startsWith("/swagger-ui/") ||
         path.startsWith("/v2/api-docs") ||
         path.startsWith("/configuration/security")||
