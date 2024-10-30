@@ -37,7 +37,7 @@ public class ExamExternalController {
             @ApiParam(value = GET_EXAM_PREVIEW_FROM_TSHERPA_FORM)
             @RequestBody GetExamPreviewRequest getExamPreviewRequest
     ) {
-        FormatValidator.validatePositiveInteger(getExamPreviewRequest.getExamId());
+        FormatValidator.validatePositiveOrZeroInteger(getExamPreviewRequest.getExamId());
 
         return ResponseEntity.status(OK).body(examApiClient.getPreview(getExamPreviewRequest));
     }
@@ -51,7 +51,7 @@ public class ExamExternalController {
             @ApiParam(value = TSHERPA_EXAM_ID, example = TSHERPA_EXAM_ID_EXAMPLE)
             @RequestParam String examId
     ) {
-        FormatValidator.validatePositiveInteger(examId);
+        FormatValidator.validatePositiveOrZeroInteger(examId);
 
         return ResponseEntity.status(OK).body(examApiClient.getItemClassificationPreview(examId));
     }
