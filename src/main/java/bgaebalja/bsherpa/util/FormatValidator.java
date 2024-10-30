@@ -7,15 +7,15 @@ import java.util.List;
 
 import static bgaebalja.bsherpa.exception.ExceptionMessage.ID_NO_VALUE_EXCEPTION_MESSAGE;
 import static bgaebalja.bsherpa.exception.ExceptionMessage.INVALID_ID_EXCEPTION_MESSAGE;
-import static bgaebalja.bsherpa.util.RegularExpressionConstant.POSITIVE_INTEGER_PATTERN;
+import static bgaebalja.bsherpa.util.RegularExpressionConstant.POSITIVE_OR_ZERO_INTEGER_PATTERN;
 
 public class FormatValidator {
-    public static void validatePositiveInteger(String positiveInteger) {
-        if (!hasValue(positiveInteger)) {
+    public static void validatePositiveOrZeroInteger(String positiveOrZeroInteger) {
+        if (!hasValue(positiveOrZeroInteger)) {
             throw new IdNoValueException(ID_NO_VALUE_EXCEPTION_MESSAGE);
         }
-        if (!isValid(positiveInteger, POSITIVE_INTEGER_PATTERN)) {
-            throw new InvalidIdException(String.format(INVALID_ID_EXCEPTION_MESSAGE, positiveInteger));
+        if (!isValid(positiveOrZeroInteger, POSITIVE_OR_ZERO_INTEGER_PATTERN)) {
+            throw new InvalidIdException(String.format(INVALID_ID_EXCEPTION_MESSAGE, positiveOrZeroInteger));
         }
     }
 

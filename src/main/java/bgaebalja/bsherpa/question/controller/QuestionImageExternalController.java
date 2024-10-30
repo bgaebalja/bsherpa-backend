@@ -51,7 +51,7 @@ public class QuestionImageExternalController {
             @ApiParam(value = TSHERPA_ITEM_IDS, defaultValue = TSHERPA_ITEM_IDS_EXAMPLE)
             @RequestParam List<String> itemIds
     ) {
-        itemIds.stream().forEach(FormatValidator::validatePositiveInteger);
+        itemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getItemImages(GetItemsRequest.of(itemIds)));
     }
@@ -62,8 +62,8 @@ public class QuestionImageExternalController {
             @ApiParam(value = GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_FORM)
             @RequestBody GetChapterItemsRequest getChapterItemsRequest
     ) {
-        getChapterItemsRequest.getLevelCnt().stream().forEach(FormatValidator::validatePositiveInteger);
-        getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveInteger);
+        getChapterItemsRequest.getLevelCnt().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getChapterItemImages(getChapterItemsRequest));
     }
@@ -74,7 +74,7 @@ public class QuestionImageExternalController {
             @ApiParam(value = TSHERPA_EXAM_ID, example = TSHERPA_EXAM_ID_EXAMPLE)
             @RequestParam String examId
     ) {
-        FormatValidator.validatePositiveInteger(examId);
+        FormatValidator.validatePositiveOrZeroInteger(examId);
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getExamItemImages(examId));
     }
@@ -90,8 +90,8 @@ public class QuestionImageExternalController {
             @ApiParam(value = TSHERPA_EXCLUDED_ITEM_IDS, defaultValue = TSHERPA_EXCLUDED_ITEM_IDS_EXAMPLE)
             @RequestParam List<String> excludedItemIds
     ) {
-        itemIds.stream().forEach(FormatValidator::validatePositiveInteger);
-        excludedItemIds.stream().forEach(FormatValidator::validatePositiveInteger);
+        itemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        excludedItemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(
                 itemImageApiClient.getSimilarItemImages(GetSimilarItemsRequest.of(itemIds, excludedItemIds))

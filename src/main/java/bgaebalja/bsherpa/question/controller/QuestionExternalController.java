@@ -56,7 +56,7 @@ public class QuestionExternalController {
             @ApiParam(value = TSHERPA_ITEM_IDS, defaultValue = TSHERPA_ITEM_IDS_EXAMPLE)
             @RequestParam List<String> itemIds
     ) {
-        itemIds.stream().forEach(FormatValidator::validatePositiveInteger);
+        itemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(itemApiClient.getItems(GetItemsRequest.of(itemIds)));
     }
@@ -67,8 +67,8 @@ public class QuestionExternalController {
             @ApiParam(value = GET_CHAPTER_ITEMS_FROM_TSHERPA_FORM)
             @RequestBody GetChapterItemsRequest getChapterItemsRequest
     ) {
-        getChapterItemsRequest.getLevelCnt().stream().forEach(FormatValidator::validatePositiveInteger);
-        getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveInteger);
+        getChapterItemsRequest.getLevelCnt().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(itemApiClient.getChapterItems(getChapterItemsRequest));
     }
@@ -79,7 +79,7 @@ public class QuestionExternalController {
             @ApiParam(value = TSHERPA_EXAM_ID, example = TSHERPA_EXAM_ID_EXAMPLE)
             @RequestParam String examId
     ) {
-        FormatValidator.validatePositiveInteger(examId);
+        FormatValidator.validatePositiveOrZeroInteger(examId);
 
         return ResponseEntity.status(OK).body(itemApiClient.getExamItems(examId));
     }
@@ -92,8 +92,8 @@ public class QuestionExternalController {
             @ApiParam(value = TSHERPA_EXCLUDED_ITEM_IDS, defaultValue = TSHERPA_EXCLUDED_ITEM_IDS_EXAMPLE)
             @RequestParam List<String> excludedItemIds
     ) {
-        itemIds.stream().forEach(FormatValidator::validatePositiveInteger);
-        excludedItemIds.stream().forEach(FormatValidator::validatePositiveInteger);
+        itemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        excludedItemIds.stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(
                 itemApiClient.getSimilarItems(GetSimilarItemsRequest.of(itemIds, excludedItemIds))
@@ -106,8 +106,8 @@ public class QuestionExternalController {
             @ApiParam(value = GET_ITEM_COUNTS_FROM_TSHERPA_FORM)
             @RequestBody GetItemCountsRequest getItemCountsRequest
     ) {
-        FormatValidator.validatePositiveInteger(getItemCountsRequest.getCurriculumCode());
-        FormatValidator.validatePositiveInteger(getItemCountsRequest.getSubjectId());
+        FormatValidator.validatePositiveOrZeroInteger(getItemCountsRequest.getCurriculumCode());
+        FormatValidator.validatePositiveOrZeroInteger(getItemCountsRequest.getSubjectId());
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getItemCounts(getItemCountsRequest));
     }
