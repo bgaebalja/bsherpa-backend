@@ -8,6 +8,10 @@ public class RequestConstant {
     public static final String APPLICATION_JSON = "application/json";
 
     public static final String ID_EXAMPLE = "1";
+    public static final String EMAIL_EXAMPLE = "abc@abc.com";
+
+    public static final String ITEM_ID_VALUE = "문제 ID";
+    public static final String ITEM_ID_EXAMPLE = "494519";
 
     public static final String EXAM_ID = "examId";
     public static final String SUBJECT_ID = "subjectId";

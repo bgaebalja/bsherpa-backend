@@ -18,6 +18,13 @@ public class ExceptionMessage {
 
     public static final String TOKEN_NO_VALUE_EXCEPTION_MESSAGE = "로그인 후 다시 시도해 주세요.";
 
+    public static final String EMAIL_NO_VALUE_EXCEPTION_MESSAGE = "이메일 주소는 필수값입니다.";
+    public static final String INVALID_EMAIL_EXCEPTION_MESSAGE
+            = "이메일 주소 형식이 잘못되었습니다. 예: abcd@abc.com\n전송된 이메일 주소: %s";
+
+    public static final String USER_NOT_FOUND_EXCEPTION_MESSAGE
+            = "해당하는 회원을 찾을 수 없습니다. 전송된 회원 이메일 주소: %s";
+
     public static final String ID_NO_VALUE_EXCEPTION_MESSAGE = "ID는 필수값입니다.";
     public static final String INVALID_ID_EXCEPTION_MESSAGE = "ID는 양의 정수(1 이상의 숫자값)여야 합니다. 전송된 ID: %s";
 }
