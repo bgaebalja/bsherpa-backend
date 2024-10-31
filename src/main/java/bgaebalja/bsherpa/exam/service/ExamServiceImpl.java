@@ -22,13 +22,14 @@ public class ExamServiceImpl implements ExamService {
     @Transactional
     public boolean registerExam(RegisterExamRequest registerExamRequest) {
         Users user = userRepository.findByUserId(registerExamRequest.getEmail()).get();
-        Book book = bookRepository.findById(registerExamRequest.getBookId()).get();
+        Book book = bookRepository.findByBookId(registerExamRequest.getBookId()).orElseThrow(() -> new NullPointerException("Book not found"));
 
         System.out.println("user check: "+user.getUsername());
         System.out.println("book check: "+book.getName());
         System.out.println("DTO check: "+registerExamRequest.getExamName());
 
-        Exam createExam = Exam.from(user, book, registerExamRequest);
+//        Exam createExam = Exam.from(user, book, registerExamRequest);
+        Exam createExam = Exam.from(user, registerExamRequest);
 
         try {
             examRepository.save(createExam);

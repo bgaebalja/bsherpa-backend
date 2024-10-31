@@ -23,9 +23,9 @@ public class Exam extends BaseGeneralEntity {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "book_id")
-    private Book book;
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "book_id")
+//    private Book book;
 
     @Column(name = "exam_name")
     private String examName;
@@ -36,20 +36,47 @@ public class Exam extends BaseGeneralEntity {
     @Column(name = "open_yn")
     private Boolean openYn;
 
+    @Column(name = "exam_type")
+    private ExamType examType = ExamType.ALL;
+
     @OneToMany(mappedBy = "exam", cascade = PERSIST)
     private List<Collection> collections;
 
+//    @Builder
+//    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
+//        this.user = user;
+//        this.book = book;
+//        this.examName = examName;
+//        this.totalCount = totalCount;
+//        this.openYn = openYn;
+//        this.collections = collections;
+//    }
+
     @Builder
-    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
+    private Exam(Users user, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
         this.user = user;
-        this.book = book;
         this.examName = examName;
         this.totalCount = totalCount;
         this.openYn = openYn;
         this.collections = collections;
     }
 
-    public static Exam from(Users user, Book book, RegisterExamRequest registerExamRequest) {
+//    public static Exam from(Users user, Book book, RegisterExamRequest registerExamRequest) {
+//        List<Collection> collections = registerExamRequest.getCollections()
+//                .stream()
+//                .map(registerCollectionRequest -> registerCollectionRequest.toEntity())
+//                .collect(Collectors.toList());
+//
+//        return Exam.builder()
+//                .user(user)
+//                .book(book)
+//                .examName(registerExamRequest.getExamName())
+//                .totalCount(registerExamRequest.getTotalCount())
+//                .openYn(true)
+//                .collections(collections)
+//                .build();
+//    }
+    public static Exam from(Users user, RegisterExamRequest registerExamRequest) {
         List<Collection> collections = registerExamRequest.getCollections()
                 .stream()
                 .map(registerCollectionRequest -> registerCollectionRequest.toEntity())
@@ -57,7 +84,6 @@ public class Exam extends BaseGeneralEntity {
 
         return Exam.builder()
                 .user(user)
-                .book(book)
                 .examName(registerExamRequest.getExamName())
                 .totalCount(registerExamRequest.getTotalCount())
                 .openYn(true)
