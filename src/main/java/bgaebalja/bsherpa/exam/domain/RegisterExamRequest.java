@@ -12,7 +12,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 public class RegisterExamRequest {
     private String email;
-    private Long bookId;
+    private String bookId;
     private String examName;
     private Long totalCount;
     private List<RegisterCollectionRequest> collections;
