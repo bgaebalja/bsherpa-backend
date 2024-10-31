@@ -1,7 +1,6 @@
 package bgaebalja.bsherpa.collection.domain;
 
 import bgaebalja.bsherpa.audit.BaseGeneralEntity;
-import bgaebalja.bsherpa.chapter.domain.Chapter;
 import bgaebalja.bsherpa.exam.domain.Exam;
 import bgaebalja.bsherpa.passage.domain.Passage;
 import bgaebalja.bsherpa.question.domain.Question;
