@@ -21,8 +21,12 @@ public class ExamServiceImpl implements ExamService {
     @Override
     @Transactional
     public boolean registerExam(RegisterExamRequest registerExamRequest) {
-        Users user = userRepository.findByUserId(registerExamRequest.getEmail());
+        Users user = userRepository.findByUserId(registerExamRequest.getEmail()).get();
         Book book = bookRepository.findById(registerExamRequest.getBookId()).get();
+
+        System.out.println("user check: "+user.getUsername());
+        System.out.println("book check: "+book.getName());
+        System.out.println("DTO check: "+registerExamRequest.getExamName());
 
         Exam createExam = Exam.from(user, book, registerExamRequest);
 
