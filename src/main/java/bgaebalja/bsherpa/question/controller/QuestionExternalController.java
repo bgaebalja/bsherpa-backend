@@ -31,7 +31,8 @@ public class QuestionExternalController {
     private static final String GET_CHAPTER_ITEMS_FROM_TSHERPA = "T셀파의 단원 별 문제 목록 조회";
     private static final String GET_CHAPTER_ITEMS_FROM_TSHERPA_DESCRIPTION
             = "단원 별 문제 목록 조회 양식을 입력해 T셀파의 문제 목록을 조회할 수 있습니다.";
-    private static final String GET_CHAPTER_ITEMS_FROM_TSHERPA_FORM = "단원 별 문제 목록 조회 양식";
+    private static final String GET_CHAPTER_ITEMS_FROM_TSHERPA_FORM
+            = "단원 코드 목록, 각 난이도 별 문제 개수, 문제 유형, 평가 영역 ID 목록";
 
     private static final String GET_EXAM_ITEMS_FROM_TSHERPA = "T셀파의 시험지 별 문제 목록 조회";
     private static final String GET_EXAM_ITEMS_FROM_TSHERPA_DESCRIPTION
@@ -48,7 +49,8 @@ public class QuestionExternalController {
     private static final String GET_ITEM_COUNTS_FROM_TSHERPA = "T셀파의 소단원과 토픽단원 별 문제 수 목록 조회";
     private static final String GET_ITEM_COUNTS_FROM_TSHERPA_DESCRIPTION
             = "문제 수 조회 양식을 입력해 T셀파의 소단원과 토픽단원 별 문제 수 목록을 조회할 수 있습니다.";
-    private static final String GET_ITEM_COUNTS_FROM_TSHERPA_FORM = "소단원과 토픽단원 별 문제 수 목록 조회 양식";
+    private static final String GET_ITEM_COUNTS_FROM_TSHERPA_FORM
+            = "커리큘럼 코드, 교재 ID, 대단원 ID, 중단원 ID, 소단원 ID";
 
     @GetMapping()
     @ApiOperation(value = GET_ITEMS_FROM_TSHERPA, notes = GET_ITEMS_FROM_TSHERPA_DESCRIPTION)
