@@ -22,7 +22,8 @@ public class ExamExternalController {
     private static final String GET_EXAM_PREVIEW_FROM_TSHERPA = "T셀파의 시험지 미리보기 주소 조회";
     private static final String GET_EXAM_PREVIEW_FROM_TSHERPA_DESCRIPTION
             = "시험지 ID와 시험지 구성 정보를 입력해 T셀파의 시험지 미리보기 주소를 조회할 수 있습니다.";
-    private static final String GET_EXAM_PREVIEW_FROM_TSHERPA_FORM = "T셀파의 시험지 미리보기 주소 조회 요청 양식";
+    private static final String GET_EXAM_PREVIEW_FROM_TSHERPA_FORM
+            = "T셀파의 시험지 ID, T셀파의 시험지 구성 정보";
 
     private static final String GET_ITEM_CLASSIFICATION_PREVIEW_FROM_TSHERPA = "T셀파의 시험지 문항분류표 미리보기 조회";
     private static final String GET_ITEM_CLASSIFICATION_PREVIEW_FROM_TSHERPA_DESCRIPTION

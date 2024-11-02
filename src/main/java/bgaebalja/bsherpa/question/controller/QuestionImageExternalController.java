@@ -31,7 +31,13 @@ public class QuestionImageExternalController {
     private static final String GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA = "T셀파의 단원 별 문제 이미지 목록 조회";
     private static final String GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_DESCRIPTION
             = "단원 별 문제 목록 조회 양식을 입력해 T셀파의 문제 이미지 목록을 조회할 수 있습니다.";
-    private static final String GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_FORM = "단원 별 문제 이미지 목록 조회 양식";
+
+    private static final String GET_ADJUSTED_CHAPTER_ITEM_IMAGES_FROM_TSHERPA = "T셀파의 조정된 단원 별 문제 이미지 목록 조회";
+    private static final String GET_ADJUSTED_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_DESCRIPTION
+            = "단원 별 문제 목록 조회 양식을 입력해 T셀파의 요청 난이도 개수 별로 조정된 문제 이미지 목록을 조회할 수 있습니다.";
+
+    private static final String GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_FORM
+            = "단원 코드 목록, 각 난이도 별 문제 개수, 문제 유형, 평가 영역 ID 목록";
 
     private static final String GET_EXAM_ITEM_IMAGES_FROM_TSHERPA = "T셀파의 시험지 별 문제 이미지 목록 조회";
     private static final String GET_EXAM_ITEM_IMAGES_FROM_TSHERPA_DESCRIPTION
@@ -66,6 +72,23 @@ public class QuestionImageExternalController {
         getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
 
         return ResponseEntity.status(OK).body(itemImageApiClient.getChapterItemImages(getChapterItemsRequest));
+    }
+
+    @PostMapping("/chapters/adjust")
+    @ApiOperation(
+            value = GET_ADJUSTED_CHAPTER_ITEM_IMAGES_FROM_TSHERPA,
+            notes = GET_ADJUSTED_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_DESCRIPTION
+    )
+    public ResponseEntity<GetItemImagesResponse> getAdjustedChapterItemImagesFromTsherpa(
+            @ApiParam(value = GET_CHAPTER_ITEM_IMAGES_FROM_TSHERPA_FORM)
+            @RequestBody GetChapterItemsRequest getChapterItemsRequest
+    ) {
+        getChapterItemsRequest.getLevelCnt().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        getChapterItemsRequest.getActivityCategoryList().stream().forEach(FormatValidator::validatePositiveOrZeroInteger);
+        GetItemImagesResponse getItemImagesResponse = itemImageApiClient.getChapterItemImages(getChapterItemsRequest);
+        getItemImagesResponse.adjustData(getChapterItemsRequest);
+
+        return ResponseEntity.status(OK).body(getItemImagesResponse);
     }
 
     @GetMapping("/exam")
