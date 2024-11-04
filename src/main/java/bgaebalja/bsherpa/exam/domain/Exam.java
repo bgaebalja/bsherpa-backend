@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.LAZY;
@@ -23,9 +23,9 @@ public class Exam extends BaseGeneralEntity {
     @JoinColumn(name = "user_id")
     private Users user;
 
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "book_id")
-//    private Book book;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     @Column(name = "exam_name")
     private String examName;
@@ -42,53 +42,37 @@ public class Exam extends BaseGeneralEntity {
     @OneToMany(mappedBy = "exam", cascade = PERSIST)
     private List<Collection> collections;
 
-//    @Builder
-//    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
-//        this.user = user;
-//        this.book = book;
-//        this.examName = examName;
-//        this.totalCount = totalCount;
-//        this.openYn = openYn;
-//        this.collections = collections;
-//    }
-
     @Builder
-    private Exam(Users user, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
+    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
         this.user = user;
+        this.book = book;
         this.examName = examName;
         this.totalCount = totalCount;
         this.openYn = openYn;
-        this.collections = collections;
+        this.collections = collections != null ? collections : new ArrayList<>();
     }
 
-//    public static Exam from(Users user, Book book, RegisterExamRequest registerExamRequest) {
-//        List<Collection> collections = registerExamRequest.getCollections()
-//                .stream()
-//                .map(registerCollectionRequest -> registerCollectionRequest.toEntity())
-//                .collect(Collectors.toList());
-//
-//        return Exam.builder()
-//                .user(user)
-//                .book(book)
-//                .examName(registerExamRequest.getExamName())
-//                .totalCount(registerExamRequest.getTotalCount())
-//                .openYn(true)
-//                .collections(collections)
-//                .build();
-//    }
-    public static Exam from(Users user, RegisterExamRequest registerExamRequest) {
-        List<Collection> collections = registerExamRequest.getCollections()
-                .stream()
-                .map(registerCollectionRequest -> registerCollectionRequest.toEntity())
-                .collect(Collectors.toList());
+    public void addCollection(Collection collection) {
+        collections.add(collection);
+        collection.assignExam(this);
+    }
 
-        return Exam.builder()
+    public static Exam from(Users user, Book book, RegisterExamRequest registerExamRequest) {
+        Exam exam = Exam.builder()
                 .user(user)
+                .book(book)
                 .examName(registerExamRequest.getExamName())
                 .totalCount(registerExamRequest.getTotalCount())
                 .openYn(true)
-                .collections(collections)
+                .collections(new ArrayList<>())
                 .build();
+
+        registerExamRequest.getCollections().forEach(registerCollectionRequest -> {
+            Collection collection = registerCollectionRequest.toEntity();
+            exam.addCollection(collection); // addCollection 호출로 양방향 관계 설정
+        });
+
+        return exam;
     }
 
 }

@@ -24,13 +24,7 @@ public class ExamServiceImpl implements ExamService {
         Users user = userRepository.findByUserId(registerExamRequest.getEmail()).get();
         Book book = bookRepository.findByBookId(registerExamRequest.getBookId()).orElseThrow(() -> new NullPointerException("Book not found"));
 
-        System.out.println("user check: "+user.getUsername());
-        System.out.println("book check: "+book.getName());
-        System.out.println("DTO check: "+registerExamRequest.getExamName());
-
-//        Exam createExam = Exam.from(user, book, registerExamRequest);
-        Exam createExam = Exam.from(user, registerExamRequest);
-
+        Exam createExam = Exam.from(user, book, registerExamRequest);
         try {
             examRepository.save(createExam);
             return true;

@@ -8,12 +8,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -25,10 +23,10 @@ public class Collection extends BaseGeneralEntity {
     @JoinColumn(name = "exam_id")
     private Exam exam;
 
-    @OneToMany(mappedBy = "collection")
+    @OneToMany(mappedBy = "collection", cascade = PERSIST)
     private List<Question> questions;
 
-    @OneToMany(mappedBy = "collection")
+    @OneToMany(mappedBy = "collection", cascade = PERSIST)
     private List<Passage> passages;
 
     @Builder
@@ -46,6 +44,9 @@ public class Collection extends BaseGeneralEntity {
                 .questions(questions)
                 .passages(passages)
                 .build();
+    }
+    public void assignExam(Exam exam) {
+        this.exam = exam;
     }
 
 }
