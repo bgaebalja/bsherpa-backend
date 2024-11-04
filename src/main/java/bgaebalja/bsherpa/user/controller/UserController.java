@@ -27,6 +27,10 @@ public class UserController {
   @PostMapping("/join")
   public ResponseEntity<Map<String, String>> postJoin(@RequestBody UserJoinRequest userJoinRequest) {
       log.info("POST join request: {}", userJoinRequest);
+      if (userJoinRequest.getRole().equals("STUDENT") && !userJoinRequest.getClazz().isEmpty() && !userJoinRequest.getGrade().isEmpty()) {
+        userService.saveStudent(userJoinRequest);
+      return ResponseEntity.status(CREATED).body(Map.of("SUCCESS","JOIN"));
+      }
       userService.saveUser(userJoinRequest);
       return ResponseEntity.status(CREATED).body(Map.of("SUCCESS","JOIN"));
   }
