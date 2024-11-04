@@ -18,4 +18,9 @@ public class UserJoinRequest extends CustomValidation {
   @CustomValidField(jsonKeyName = "username")
   private String username;
 
+  private String role;
+
+  private String clazz;
+  private String grade;
+
 }

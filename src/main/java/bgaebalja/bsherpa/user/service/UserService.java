@@ -7,4 +7,6 @@ public interface UserService {
     void saveUser(UserJoinRequest userJoinRequest);
 
     Object getKakaoUser(String accessToken);
+
+    void saveStudent(UserJoinRequest userJoinRequest);
 }

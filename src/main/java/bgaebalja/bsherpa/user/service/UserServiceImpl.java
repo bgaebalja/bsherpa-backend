@@ -39,7 +39,17 @@ public class UserServiceImpl implements UserService {
   public void saveUser(UserJoinRequest userJoinRequest) {
     String password = passwordEncoder.encode(userJoinRequest.getPassword());
     Users user = Users.createUser(userJoinRequest.getUsername(), password,
-        userJoinRequest.getEmail());
+    userJoinRequest.getEmail(),userJoinRequest.getClazz(),userJoinRequest.getGrade());
+    userRepository.save(user);
+  }
+
+  @Override
+  @Transactional
+  public void saveStudent(UserJoinRequest userJoinRequest) {
+    log.info("Saving student: {}" , userJoinRequest);
+    String password = passwordEncoder.encode(userJoinRequest.getPassword());
+    Users user = Users.createStudent(userJoinRequest.getUsername(), password,userJoinRequest.getEmail(),userJoinRequest.getClazz(),userJoinRequest.getGrade()
+        );
     userRepository.save(user);
   }
 
@@ -53,6 +63,8 @@ public class UserServiceImpl implements UserService {
           users.getUserId(),
           users.getPassword(),
           users.getUsername(),
+          users.getClazz(),
+          users.getGrade(),
           users.getRoles().stream().map(UserRole::getRole).collect(Collectors.toList())
       );
     }

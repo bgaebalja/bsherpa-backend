@@ -32,6 +32,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         loginUser.getUserId(),
         loginUser.getPassword(),
         loginUser.getUsername(),
+        loginUser.getClazz(),
+        loginUser.getGrade(),
         loginUser.getRoles().stream().map(UserRole::getRole).collect(Collectors.toList())
     );
   }

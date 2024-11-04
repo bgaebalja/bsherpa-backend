@@ -83,7 +83,9 @@ public class JwtCheckFilter extends OncePerRequestFilter {
       String password = (String) claims.get("password");
       String username = (String) claims.get("username");
       List<String> roles = (List<String>) claims.get("roles");
-      UserDTO memberDTO = new UserDTO(email, password, username, roles);
+      String clazz = (String) claims.get("clazz");
+      String grade = (String) claims.get("grade");
+      UserDTO memberDTO = new UserDTO(email, password, username, clazz,grade,roles);
 
       //Spring security 가 사용하는 토큰
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
