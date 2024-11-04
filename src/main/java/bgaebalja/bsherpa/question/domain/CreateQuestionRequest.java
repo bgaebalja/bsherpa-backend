@@ -3,14 +3,14 @@ package bgaebalja.bsherpa.question.domain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 
+import static bgaebalja.bsherpa.util.RequestConstant.ITEM_ID_EXAMPLE;
+import static bgaebalja.bsherpa.util.RequestConstant.ITEM_ID_VALUE;
+
 /**
  * 모두 String 타입으로 받은 후 타입 변환
  */
 @Getter
 public class CreateQuestionRequest {
-    private static final String ITEM_ID_VALUE = "문제 ID";
-    private static final String ITEM_ID_EXAMPLE = "494519";
-
     private static final String DESCRIPTION_URL_VALUE = "해설 URL";
     private static final String DESCRIPTION_URL_EXAMPLE
             = "https://ddipddipddip.s3.amazonaws.com/post/1819/1729131706204_Loopy2.png?w=248&fit=crop&auto=format";

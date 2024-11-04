@@ -30,12 +30,13 @@ public class JwtCheckFilter extends OncePerRequestFilter {
   protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
     //true 체크 안 한다
     String path = request.getRequestURI();
+    log.info(path);
     if (path.startsWith("/users/")) {
       return true;
     }
-    if (path.startsWith("/books")) {
+    if (path.equals("/books")) {
       return true;
-    }
+    }/*
     if (path.startsWith("/questions")) {
       return true;
     }
@@ -47,7 +48,7 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     }
     if (path.startsWith("/step1/chapters")) {
       return true;
-    }
+    }*/
     if (path.startsWith("/error-reports")) {
       return true;
     }
@@ -82,7 +83,9 @@ public class JwtCheckFilter extends OncePerRequestFilter {
       String password = (String) claims.get("password");
       String username = (String) claims.get("username");
       List<String> roles = (List<String>) claims.get("roles");
-      UserDTO memberDTO = new UserDTO(email, password, username, roles);
+      String clazz = (String) claims.get("clazz");
+      String grade = (String) claims.get("grade");
+      UserDTO memberDTO = new UserDTO(email, password, username, clazz,grade,roles);
 
       //Spring security 가 사용하는 토큰
       UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

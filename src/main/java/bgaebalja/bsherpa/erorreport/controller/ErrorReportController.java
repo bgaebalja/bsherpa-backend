@@ -2,6 +2,7 @@ package bgaebalja.bsherpa.erorreport.controller;
 
 import bgaebalja.bsherpa.erorreport.domain.RegisterErrorReportRequest;
 import bgaebalja.bsherpa.erorreport.service.ErrorReportService;
+import bgaebalja.bsherpa.util.FormatValidator;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,8 @@ public class ErrorReportController {
             @ApiParam(value = REGISTER_ERROR_REPORT_FORM)
             @ModelAttribute RegisterErrorReportRequest registerErrorReportRequest
     ) {
+        FormatValidator.validateEmail(registerErrorReportRequest.getUserEmail());
+        FormatValidator.validatePositiveOrZeroInteger(registerErrorReportRequest.getItemId());
         errorReportService.createErrorReport(registerErrorReportRequest);
 
         return ResponseEntity.status(CREATED).build();

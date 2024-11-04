@@ -37,6 +37,11 @@ public class Users extends BaseGeneralEntity {
   @Column(nullable = false)
   private String userId;
 
+  @Column(name = "class")
+  private String clazz;
+
+  private String grade;
+
   @Builder.Default
   @ElementCollection(fetch = LAZY)
   @CollectionTable(name = "user_role", joinColumns = {
@@ -44,13 +49,20 @@ public class Users extends BaseGeneralEntity {
   })
   private List<UserRole> roles = new ArrayList<>();
 
-  public static Users createUser(String username, String password, String email) {
+  public static Users createUser(String username, String password, String email,String clazz,String grade) {
     Users user = Users.builder()
         .username(username)
         .password(password)
+        .clazz(clazz)
+        .grade(grade)
         .userId(email)
         .build();
     user.getRoles().add(new UserRole("CREATOR"));
+    return user;
+  }
+  public static Users createStudent(String username, String password, String email,String clazz,String grade) {
+    Users user = createUser(username, password, email, clazz, grade);
+    user.getRoles().add(new UserRole("STUDENT"));
     return user;
   }
 }

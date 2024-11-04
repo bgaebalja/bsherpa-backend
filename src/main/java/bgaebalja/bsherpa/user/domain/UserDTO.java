@@ -9,11 +9,11 @@ import org.springframework.security.core.userdetails.User;
 
 public class UserDTO extends User {
 
-  private String email, password, username;
+  private String email, password, username, clazz, grade;
 
   private List<String> roles;
 
-  public UserDTO(String email, String password, String username, List<String> roles) {
+  public UserDTO(String email, String password, String username, String clazz, String grade,List<String> roles) {
     super(
         email,
         password,
@@ -24,6 +24,8 @@ public class UserDTO extends User {
     this.password = password;
     this.username = username;
     this.roles = roles;
+    this.clazz = clazz;
+    this.grade = grade;
   }
 
   public Map<String,Object> getClaims() {
@@ -32,6 +34,8 @@ public class UserDTO extends User {
     claims.put("password", password);
     claims.put("username", username);
     claims.put("roles", roles);
+    claims.put("grade", grade);
+    claims.put("clazz", clazz);
     return claims;
   }
 
