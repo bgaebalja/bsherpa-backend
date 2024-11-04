@@ -30,12 +30,13 @@ public class JwtCheckFilter extends OncePerRequestFilter {
   protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
     //true 체크 안 한다
     String path = request.getRequestURI();
+    log.info(path);
     if (path.startsWith("/users/")) {
       return true;
     }
-    if (path.startsWith("/books")) {
+    if (path.equals("/books")) {
       return true;
-    }
+    }/*
     if (path.startsWith("/questions")) {
       return true;
     }
@@ -47,7 +48,7 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     }
     if (path.startsWith("/step1/chapters")) {
       return true;
-    }
+    }*/
     if (path.startsWith("/error-reports")) {
       return true;
     }
