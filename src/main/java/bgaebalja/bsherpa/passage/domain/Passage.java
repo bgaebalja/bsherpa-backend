@@ -16,7 +16,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Getter
 public class Passage extends BaseGeneralEntity {
     @Column(nullable = false)
-    private Long passageId;
+    private String passageId;
 
     @Column(nullable = false)
     private String html;
@@ -29,7 +29,7 @@ public class Passage extends BaseGeneralEntity {
     private Collection collection;
 
     @Builder
-    private Passage(Long passageId,String html, String url, Collection collection) {
+    private Passage(String passageId,String html, String url, Collection collection) {
         this.passageId = passageId;
         this.html = html;
         this.url = url;
@@ -40,5 +40,8 @@ public class Passage extends BaseGeneralEntity {
     public static Passage from(){
         return Passage.builder()
                 .build();
+    }
+    public void assignCollection(Collection collection) {
+        this.collection = collection;
     }
 }
