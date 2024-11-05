@@ -35,8 +35,8 @@ public class Exam extends BaseGeneralEntity {
     @Column(name = "total_count")
     private Long totalCount;
 
-    @Column(name = "exam_type")
-    private String examType;
+    @Column(name = "exam_category")
+    private String examCategory;
 
     @Column(name = "open_yn")
     private Boolean openYn;
@@ -45,13 +45,13 @@ public class Exam extends BaseGeneralEntity {
     private List<Collection> collections;
 
     @Builder
-    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, String examType,List<Collection> collections) {
+    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, String examCategory,List<Collection> collections) {
         this.user = user;
         this.book = book;
         this.examName = examName;
         this.totalCount = totalCount;
         this.openYn = openYn;
-        this.examType = examType;
+        this.examCategory = examCategory;
         this.collections = collections != null ? collections : new ArrayList<>();
     }
 
@@ -67,7 +67,7 @@ public class Exam extends BaseGeneralEntity {
                 .examName(registerExamRequest.getExamName())
                 .totalCount(registerExamRequest.getTotalCount())
                 .openYn(true)
-                .examType(registerExamRequest.getExamType())
+                .examCategory(registerExamRequest.getExamCategory())
                 .collections(new ArrayList<>())
                 .build();
 
