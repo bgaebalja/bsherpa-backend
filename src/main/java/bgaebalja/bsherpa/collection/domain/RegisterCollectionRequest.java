@@ -28,9 +28,11 @@ public class RegisterCollectionRequest {
         filteredPassages.forEach(passage -> passage.assignCollection(collection));
 
         if (questions != null) {
-            questions.forEach(question -> question.assignCollection(collection)); // Question에도 collection 할당
+            questions.forEach(question -> {
+                question.assignCollection(collection);
+                question.getOptions().forEach(option -> option.assignQuestion(question));
+            });
         }
-
         return collection;
     }
 }
