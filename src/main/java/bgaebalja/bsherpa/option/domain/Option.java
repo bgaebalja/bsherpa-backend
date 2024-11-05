@@ -1,4 +1,4 @@
-package bgaebalja.bsherpa.options.domain;
+package bgaebalja.bsherpa.option.domain;
 
 import bgaebalja.bsherpa.audit.BaseGeneralEntity;
 import bgaebalja.bsherpa.question.domain.Question;
@@ -11,10 +11,11 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Table(name = "options")
 @Entity
 @NoArgsConstructor(access = PROTECTED)
 @Getter
-public class Options extends BaseGeneralEntity {
+public class Option extends BaseGeneralEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
@@ -25,7 +26,7 @@ public class Options extends BaseGeneralEntity {
     private String html;
 
     @Builder
-    private Options(Question question,String optionNo, String html) {
+    private Option(Question question, String optionNo, String html) {
         this.question = question;
         this.optionNo = optionNo;
         this.html = html;
