@@ -15,5 +15,6 @@ public class RegisterExamRequest {
     private String bookId;
     private String examName;
     private Long totalCount;
+    private String examCategory;
     private List<RegisterCollectionRequest> collections;
 }

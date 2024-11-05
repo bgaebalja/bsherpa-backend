@@ -2,6 +2,7 @@ package bgaebalja.bsherpa.question.domain;
 
 import bgaebalja.bsherpa.audit.BaseGeneralEntity;
 import bgaebalja.bsherpa.collection.domain.Collection;
+import bgaebalja.bsherpa.option.domain.Option;
 import bgaebalja.bsherpa.util.FormatConverter;
 import bgaebalja.bsherpa.util.QuestionClassifier;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,7 +12,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import java.util.List;
+
 import static bgaebalja.bsherpa.util.EntityConstant.BOOLEAN_DEFAULT_FALSE;
+import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.LAZY;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -96,12 +100,15 @@ public class Question extends BaseGeneralEntity {
     @Column(name = "topic_chapter_name")
     private String topicChapterName;
 
+    @OneToMany(mappedBy = "question", cascade = PERSIST)
+    private List<Option> options;
+
     @Builder
     private Question(Long itemId, String html, String url, QuestionType questionType, Difficulty difficulty, String answer,
                      String descriptionUrl, String descriptionHtml, String answerUrl, String answerHtml, int errorReportCount,
                      boolean blockYn, Integer placementNumber, String largeChapterCode, String largeChapterName, String mediumChapterCode,
                      String mediumChapterName, String smallChapterCode, String smallChapterName, String topicChapterCode,
-                     String topicChapterName, Collection collection){
+                     String topicChapterName, Collection collection, List<Option> options) {
         this.itemId = itemId;
         this.html = html;
         this.url = url;
@@ -124,9 +131,8 @@ public class Question extends BaseGeneralEntity {
         this.topicChapterCode = topicChapterCode;
         this.topicChapterName = topicChapterName;
         this.collection = collection;
+        this.options = options;
     }
-
-
 
     public static Question from(CreateQuestionRequest createQuestionRequest, Collection collection) {
         return Question.builder()
@@ -142,5 +148,10 @@ public class Question extends BaseGeneralEntity {
 
     public void assignCollection(Collection collection) {
         this.collection = collection;
+    }
+
+    public void addOption(Option option) {
+        option.assignQuestion(this);
+        this.options.add(option);
     }
 }

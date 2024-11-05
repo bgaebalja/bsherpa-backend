@@ -5,6 +5,7 @@ import bgaebalja.bsherpa.book.domain.Book;
 import bgaebalja.bsherpa.collection.domain.Collection;
 import bgaebalja.bsherpa.user.domain.Users;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
+@Getter
 public class Exam extends BaseGeneralEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
@@ -33,22 +35,23 @@ public class Exam extends BaseGeneralEntity {
     @Column(name = "total_count")
     private Long totalCount;
 
+    @Column(name = "exam_category")
+    private String examCategory;
+
     @Column(name = "open_yn")
     private Boolean openYn;
-
-    @Column(name = "exam_type")
-    private ExamType examType = ExamType.ALL;
 
     @OneToMany(mappedBy = "exam", cascade = PERSIST)
     private List<Collection> collections;
 
     @Builder
-    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
+    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, String examCategory,List<Collection> collections) {
         this.user = user;
         this.book = book;
         this.examName = examName;
         this.totalCount = totalCount;
         this.openYn = openYn;
+        this.examCategory = examCategory;
         this.collections = collections != null ? collections : new ArrayList<>();
     }
 
@@ -64,6 +67,7 @@ public class Exam extends BaseGeneralEntity {
                 .examName(registerExamRequest.getExamName())
                 .totalCount(registerExamRequest.getTotalCount())
                 .openYn(true)
+                .examCategory(registerExamRequest.getExamCategory())
                 .collections(new ArrayList<>())
                 .build();
 
