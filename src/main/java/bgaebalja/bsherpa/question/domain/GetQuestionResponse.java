@@ -1,6 +1,5 @@
 package bgaebalja.bsherpa.question.domain;
 
-import bgaebalja.bsherpa.collection.domain.Collection;
 import bgaebalja.bsherpa.option.domain.GetOptionsResponse;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,12 +10,12 @@ public class GetQuestionResponse {
     private String html;
     private String descriptionUrl;
     private QuestionType questionType;
+    private GetOptionsResponse getOptionsResponse;
     private Difficulty difficulty;
     private String answer;
     private String answerUrl;
     private int errorReportCount;
     private boolean blockYn;
-    private Collection collection;
     private Integer placementNumber;
     private String largeChapterCode;
     private String largeChapterName;
@@ -30,22 +29,22 @@ public class GetQuestionResponse {
 
     @Builder
     private GetQuestionResponse(
-            Long itemId, String html, String descriptionUrl, QuestionType questionType, Difficulty difficulty,
-            String answer, String answerUrl, int errorReportCount, boolean blockYn, Collection collection,
-            Integer placementNumber, String largeChapterCode, String largeChapterName, String mediumChapterCode,
-            String mediumChapterName, String smallChapterCode, String smallChapterName, String topicChapterCode,
-            String topicChapterName, boolean isSubjective
+            Long itemId, String html, String descriptionUrl, QuestionType questionType,
+            GetOptionsResponse getOptionsResponse, Difficulty difficulty, String answer, String answerUrl,
+            int errorReportCount, boolean blockYn, Integer placementNumber, String largeChapterCode,
+            String largeChapterName, String mediumChapterCode, String mediumChapterName, String smallChapterCode,
+            String smallChapterName, String topicChapterCode, String topicChapterName, boolean isSubjective
     ) {
         this.itemId = itemId;
         this.html = html;
         this.descriptionUrl = descriptionUrl;
         this.questionType = questionType;
+        this.getOptionsResponse = getOptionsResponse;
         this.difficulty = difficulty;
         this.answer = answer;
         this.answerUrl = answerUrl;
         this.errorReportCount = errorReportCount;
         this.blockYn = blockYn;
-        this.collection = collection;
         this.placementNumber = placementNumber;
         this.largeChapterCode = largeChapterCode;
         this.largeChapterName = largeChapterName;
@@ -70,12 +69,12 @@ public class GetQuestionResponse {
                 .html(question.getHtml())
                 .descriptionUrl(question.getDescriptionUrl())
                 .questionType(question.getQuestionType())
+                .getOptionsResponse(getOptionsResponse)
                 .difficulty(question.getDifficulty())
                 .answer(question.getAnswer())
                 .answerUrl(question.getAnswerUrl())
                 .errorReportCount(question.getErrorReportCount())
                 .blockYn(question.isBlockYn())
-                .collection(question.getCollection())
                 .placementNumber(question.getPlacementNumber())
                 .largeChapterCode(question.getLargeChapterCode())
                 .largeChapterName(question.getLargeChapterName())
