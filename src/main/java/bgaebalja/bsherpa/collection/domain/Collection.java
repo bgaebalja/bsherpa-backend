@@ -49,4 +49,8 @@ public class Collection extends BaseGeneralEntity {
         this.exam = exam;
     }
 
+    public int getQuestionCount() {
+        return questions.size();
+    }
+
 }

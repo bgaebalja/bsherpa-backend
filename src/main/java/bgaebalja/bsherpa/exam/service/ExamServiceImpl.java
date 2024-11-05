@@ -4,12 +4,17 @@ import bgaebalja.bsherpa.book.domain.Book;
 import bgaebalja.bsherpa.book.repository.BookRepository;
 import bgaebalja.bsherpa.exam.domain.Exam;
 import bgaebalja.bsherpa.exam.domain.RegisterExamRequest;
+import bgaebalja.bsherpa.exam.exception.ExamNotFoundException;
 import bgaebalja.bsherpa.exam.repository.ExamRepository;
 import bgaebalja.bsherpa.user.domain.Users;
 import bgaebalja.bsherpa.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+import static bgaebalja.bsherpa.exam.exception.ExceptionMessage.EXAM_NOT_FOUND_EXCEPTION_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +33,24 @@ public class ExamServiceImpl implements ExamService {
         try {
             examRepository.save(createExam);
             return true;
-        }catch (Exception e) { return false; }
+        } catch (Exception e) {
+            return false;
+        }
     }
 
+    @Override
+    public List<Exam> getPastExams() {
+        return examRepository.findByDeleteYnFalseAndOpenYnTrue();
+    }
+
+    @Override
+    public List<Exam> getBsherpaExams() {
+        return examRepository.findByDeleteYnFalseAndOpenYnTrue();
+    }
+
+    @Override
+    public Exam getExam(Long examId) {
+        return examRepository.findByIdAndDeleteYnFalse(examId)
+                .orElseThrow(() -> new ExamNotFoundException(String.format(EXAM_NOT_FOUND_EXCEPTION_MESSAGE, examId)));
+    }
 }
