@@ -4,6 +4,8 @@ import static bgaebalja.bsherpa.validation.Valid.JOIN;
 import static org.springframework.http.HttpStatus.CREATED;
 
 import bgaebalja.bsherpa.user.domain.UserJoinRequest;
+import bgaebalja.bsherpa.user.dto.request.UserSwaggerLoginRequest;
+import bgaebalja.bsherpa.user.dto.response.UserSwaggerLoginResponse;
 import bgaebalja.bsherpa.user.service.UserService;
 import bgaebalja.bsherpa.validation.CustomValid;
 import java.util.Map;
@@ -33,6 +35,12 @@ public class UserController {
       }
       userService.saveUser(userJoinRequest);
       return ResponseEntity.status(CREATED).body(Map.of("SUCCESS","JOIN"));
+  }
+
+  @PostMapping("/login/swagger")
+  public ResponseEntity<UserSwaggerLoginResponse> postLoginSwagger(@RequestBody UserSwaggerLoginRequest userSwaggerLoginRequest){
+    UserSwaggerLoginResponse response = userService.getUser(userSwaggerLoginRequest);
+    return ResponseEntity.status(CREATED).body(response);
   }
 
 }

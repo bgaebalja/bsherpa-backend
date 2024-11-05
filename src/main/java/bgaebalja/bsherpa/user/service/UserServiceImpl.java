@@ -9,12 +9,18 @@ import bgaebalja.bsherpa.user.domain.UserDTO;
 import bgaebalja.bsherpa.user.domain.UserJoinRequest;
 import bgaebalja.bsherpa.user.domain.UserRole;
 import bgaebalja.bsherpa.user.domain.Users;
+import bgaebalja.bsherpa.user.dto.request.UserSwaggerLoginRequest;
+import bgaebalja.bsherpa.user.dto.response.UserSwaggerLoginResponse;
 import bgaebalja.bsherpa.user.repository.UserRepository;
+import bgaebalja.bsherpa.util.FormatConverter;
+import bgaebalja.bsherpa.util.JwtUtil;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -33,24 +39,55 @@ public class UserServiceImpl implements UserService {
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final Environment env;
+  private final JwtUtil jwtUtil;
 
   @Override
   @Transactional
   public void saveUser(UserJoinRequest userJoinRequest) {
     String password = passwordEncoder.encode(userJoinRequest.getPassword());
     Users user = Users.createUser(userJoinRequest.getUsername(), password,
-    userJoinRequest.getEmail(),userJoinRequest.getClazz(),userJoinRequest.getGrade());
+        userJoinRequest.getEmail(), userJoinRequest.getClazz(), userJoinRequest.getGrade());
     userRepository.save(user);
   }
 
   @Override
   @Transactional
   public void saveStudent(UserJoinRequest userJoinRequest) {
-    log.info("Saving student: {}" , userJoinRequest);
+    log.info("Saving student: {}", userJoinRequest);
     String password = passwordEncoder.encode(userJoinRequest.getPassword());
-    Users user = Users.createStudent(userJoinRequest.getUsername(), password,userJoinRequest.getEmail(),userJoinRequest.getClazz(),userJoinRequest.getGrade()
-        );
+    Users user = Users.createStudent(userJoinRequest.getUsername(), password,
+        userJoinRequest.getEmail(), userJoinRequest.getClazz(), userJoinRequest.getGrade()
+    );
     userRepository.save(user);
+  }
+
+  @Override
+  public UserSwaggerLoginResponse getUser(UserSwaggerLoginRequest userSwaggerLoginRequest) {
+    Users user = userRepository.findByUserId(userSwaggerLoginRequest.getEmail()).orElseThrow();
+    boolean isMatch = passwordEncoder.matches(userSwaggerLoginRequest.getPassword(),
+        user.getPassword());
+    if (!isMatch) {
+      throw new IllegalArgumentException("계정이 맞지 않습니다");
+    }
+    int accessTokenExpirationTime = FormatConverter.parseToInt(
+        env.getProperty("jwt.access-token.expiration-time"));
+    int refreshTokenExpirationTime = FormatConverter.parseToInt(
+        env.getProperty("jwt.refresh-token.expiration-time"));
+
+    Map<String, Object> claims = new UserDTO(user.getUserId(), user.getPassword(),
+        user.getUsername(), user.getClazz(),
+        user.getGrade(), user.getRoles().stream().map(
+        UserRole::getRole).collect(
+        Collectors.toList())).getClaims();
+
+    String accessToken = jwtUtil.generateToken(claims, accessTokenExpirationTime);
+    String refreshToken = jwtUtil.generateToken(claims, refreshTokenExpirationTime);
+    return UserSwaggerLoginResponse.builder()
+        .email(user.getUserId())
+        .accessToken(accessToken)
+        .refreshToken(refreshToken).build();
+
   }
 
   @Override
