@@ -35,22 +35,23 @@ public class Exam extends BaseGeneralEntity {
     @Column(name = "total_count")
     private Long totalCount;
 
+    @Column(name = "exam_type")
+    private String examType;
+
     @Column(name = "open_yn")
     private Boolean openYn;
-
-    @Column(name = "exam_type")
-    private ExamType examType = ExamType.ALL;
 
     @OneToMany(mappedBy = "exam", cascade = PERSIST)
     private List<Collection> collections;
 
     @Builder
-    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, List<Collection> collections) {
+    private Exam(Users user, Book book, String examName, Long totalCount, Boolean openYn, String examType,List<Collection> collections) {
         this.user = user;
         this.book = book;
         this.examName = examName;
         this.totalCount = totalCount;
         this.openYn = openYn;
+        this.examType = examType;
         this.collections = collections != null ? collections : new ArrayList<>();
     }
 
@@ -66,6 +67,7 @@ public class Exam extends BaseGeneralEntity {
                 .examName(registerExamRequest.getExamName())
                 .totalCount(registerExamRequest.getTotalCount())
                 .openYn(true)
+                .examType(registerExamRequest.getExamType())
                 .collections(new ArrayList<>())
                 .build();
 
