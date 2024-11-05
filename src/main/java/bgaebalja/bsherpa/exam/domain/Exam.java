@@ -5,6 +5,7 @@ import bgaebalja.bsherpa.book.domain.Book;
 import bgaebalja.bsherpa.collection.domain.Collection;
 import bgaebalja.bsherpa.user.domain.Users;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @NoArgsConstructor(access = PROTECTED)
+@Getter
 public class Exam extends BaseGeneralEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
