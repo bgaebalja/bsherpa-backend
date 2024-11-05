@@ -7,7 +7,7 @@ import lombok.Data;
 public class UserSwaggerLoginRequest {
 
   private static final String EMAIL_OR_USERNAME_VALUE = "이메일 주소 또는 사용자 이름(아이디)";
-  public static final String EMAIL_EXAMPLE = "tene9537@nate.com";
+  public static final String EMAIL_EXAMPLE = "tane9537@nate.com";
 
   public static final String PASSWORD_VALUE = "비밀번호";
   public static final String PASSWORD_EXAMPLE = "qwe123";
