@@ -134,7 +134,6 @@ public class Question extends BaseGeneralEntity {
         this.options = options;
     }
 
-
     public static Question from(CreateQuestionRequest createQuestionRequest, Collection collection) {
         return Question.builder()
                 .itemId(FormatConverter.parseToLong(createQuestionRequest.getItemId()))
@@ -149,5 +148,10 @@ public class Question extends BaseGeneralEntity {
 
     public void assignCollection(Collection collection) {
         this.collection = collection;
+    }
+
+    public void addOption(Option option) {
+        option.assignQuestion(this);
+        this.options.add(option);
     }
 }

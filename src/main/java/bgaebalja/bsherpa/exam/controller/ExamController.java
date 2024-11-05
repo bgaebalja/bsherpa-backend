@@ -16,7 +16,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("exam")
+@RequestMapping("exams")
 @RequiredArgsConstructor
 public class ExamController {
     private final ExamService examService;
