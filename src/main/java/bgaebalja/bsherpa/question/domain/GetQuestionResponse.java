@@ -1,6 +1,7 @@
 package bgaebalja.bsherpa.question.domain;
 
 import bgaebalja.bsherpa.collection.domain.Collection;
+import bgaebalja.bsherpa.option.domain.GetOptionsResponse;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -25,6 +26,7 @@ public class GetQuestionResponse {
     private String smallChapterName;
     private String topicChapterCode;
     private String topicChapterName;
+    private boolean isSubjective;
 
     @Builder
     private GetQuestionResponse(
@@ -32,7 +34,7 @@ public class GetQuestionResponse {
             String answer, String answerUrl, int errorReportCount, boolean blockYn, Collection collection,
             Integer placementNumber, String largeChapterCode, String largeChapterName, String mediumChapterCode,
             String mediumChapterName, String smallChapterCode, String smallChapterName, String topicChapterCode,
-            String topicChapterName
+            String topicChapterName, boolean isSubjective
     ) {
         this.itemId = itemId;
         this.html = html;
@@ -53,9 +55,16 @@ public class GetQuestionResponse {
         this.smallChapterName = smallChapterName;
         this.topicChapterCode = topicChapterCode;
         this.topicChapterName = topicChapterName;
+        this.isSubjective = isSubjective;
     }
 
     public static GetQuestionResponse from(Question question) {
+        boolean isSubjective = question.getQuestionType().isSubjective();
+        GetOptionsResponse getOptionsResponse = null;
+        if (!isSubjective) {
+            getOptionsResponse = GetOptionsResponse.from(question.getOptions());
+        }
+
         return GetQuestionResponse.builder()
                 .itemId(question.getItemId())
                 .html(question.getHtml())

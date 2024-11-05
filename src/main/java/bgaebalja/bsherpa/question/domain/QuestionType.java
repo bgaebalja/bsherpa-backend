@@ -42,6 +42,10 @@ public enum QuestionType {
         return this == DESCRIPTIVE;
     }
 
+    public boolean isSubjective() {
+        return Integer.parseInt(this.getCode()) > 50;
+    }
+
     public static String getNameByCode(String code) {
         for (QuestionType questionType : QuestionType.values()) {
             if (questionType.getCode().equals(code)) {

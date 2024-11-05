@@ -2,7 +2,7 @@ package bgaebalja.bsherpa.question.domain;
 
 import bgaebalja.bsherpa.audit.BaseGeneralEntity;
 import bgaebalja.bsherpa.collection.domain.Collection;
-import bgaebalja.bsherpa.options.domain.Options;
+import bgaebalja.bsherpa.option.domain.Option;
 import bgaebalja.bsherpa.util.FormatConverter;
 import bgaebalja.bsherpa.util.QuestionClassifier;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -101,14 +101,14 @@ public class Question extends BaseGeneralEntity {
     private String topicChapterName;
 
     @OneToMany(mappedBy = "question", cascade = PERSIST)
-    private List<Options> options;
+    private List<Option> options;
 
     @Builder
     private Question(Long itemId, String html, String url, QuestionType questionType, Difficulty difficulty, String answer,
                      String descriptionUrl, String descriptionHtml, String answerUrl, String answerHtml, int errorReportCount,
                      boolean blockYn, Integer placementNumber, String largeChapterCode, String largeChapterName, String mediumChapterCode,
                      String mediumChapterName, String smallChapterCode, String smallChapterName, String topicChapterCode,
-                     String topicChapterName, Collection collection, List<Options> options){
+                     String topicChapterName, Collection collection, List<Option> options) {
         this.itemId = itemId;
         this.html = html;
         this.url = url;

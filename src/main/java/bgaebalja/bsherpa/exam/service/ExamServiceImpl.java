@@ -15,9 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static bgaebalja.bsherpa.exam.exception.ExceptionMessage.EXAM_NOT_FOUND_EXCEPTION_MESSAGE;
+import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(isolation = READ_COMMITTED, readOnly = true, timeout = 20)
 public class ExamServiceImpl implements ExamService {
     private final ExamRepository examRepository;
     private final UserRepository userRepository;
