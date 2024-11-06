@@ -42,4 +42,11 @@ public class ExamController {
 
         return ResponseEntity.status(OK).body(GetExamResponse.from(exam));
     }
+
+    @GetMapping("/storage")
+    public ResponseEntity<GetExamsResponse> getExamByEmail(@RequestParam("email") String email) {
+        List<Exam> userExams = examService.getExamByUser(email);
+
+        return ResponseEntity.status(OK).body(GetExamsResponse.from(userExams));
+    }
 }

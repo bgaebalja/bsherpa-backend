@@ -55,4 +55,11 @@ public class ExamServiceImpl implements ExamService {
         return examRepository.findByIdAndDeleteYnFalse(examId)
                 .orElseThrow(() -> new ExamNotFoundException(String.format(EXAM_NOT_FOUND_EXCEPTION_MESSAGE, examId)));
     }
+
+    @Override
+    public List<Exam> getExamByUser(String email) {
+        Long userId = userRepository.findByUserId(email).get().getId();
+
+        return examRepository.findByUserIdAndDeleteYnFalse(userId);
+    }
 }
