@@ -13,4 +13,6 @@ public interface ExamService {
     List<Exam> getBsherpaExams();
 
     Exam getExam(Long examId);
+
+    List<Exam> getExamByUser(String email);
 }
