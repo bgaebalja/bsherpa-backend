@@ -11,9 +11,13 @@ import java.util.Optional;
 public interface ExamRepository extends JpaRepository<Exam, Long> {
     Optional<Exam> findById(Long id);
 
+    List<Exam> findByUserIdAndDeleteYnFalseAndOpenYnTrue(Long userId);
+
     List<Exam> findByDeleteYnFalseAndOpenYnTrue();
 
     Optional<Exam> findByIdAndDeleteYnFalse(Long examId);
 
     List<Exam> findByUserIdAndDeleteYnFalse(Long userId);
+
+    List<Exam> findByUserIdAndBookIdAndDeleteYnFalse(Long userId, Long bookId);
 }

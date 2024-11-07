@@ -8,9 +8,7 @@ import java.util.List;
 public interface ExamService {
     boolean registerExam(RegisterExamRequest registerExamRequest);
 
-    List<Exam> getPastExams();
-
-    List<Exam> getBsherpaExams();
+    List<Exam> getExams(String email, String subjectName);
 
     Exam getExam(Long examId);
 
