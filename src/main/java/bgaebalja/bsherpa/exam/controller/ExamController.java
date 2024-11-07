@@ -32,7 +32,7 @@ public class ExamController {
     @GetMapping()
     public ResponseEntity<GetExamsResponse> getExams(
             @RequestParam(value = "email", defaultValue = "") String email,
-            @RequestParam String subjectName
+            @RequestParam(value = "subjectName", defaultValue = "") String subjectName
     ) {
         List<Exam> exams = examService.getExams(email, subjectName);
 
