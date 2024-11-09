@@ -11,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.List;
 
 import static bgaebalja.bsherpa.util.EntityConstant.BOOLEAN_DEFAULT_FALSE;
@@ -153,5 +152,11 @@ public class Question extends BaseGeneralEntity {
     public void addOption(Option option) {
         option.assignQuestion(this);
         this.options.add(option);
+    }
+
+    public void addErrorReport() {
+        if (++errorReportCount > 3) {
+            blockYn = true;
+        }
     }
 }
