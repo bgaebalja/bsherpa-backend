@@ -25,11 +25,15 @@ public class Option extends BaseGeneralEntity {
 
     private String html;
 
+    @Column(name = "answer_yn")
+    private boolean answerYn;
+
     @Builder
-    private Option(Question question, String optionNo, String html) {
+    private Option(Question question, String optionNo, String html, boolean answerYn) {
         this.question = question;
         this.optionNo = optionNo;
         this.html = html;
+        this.answerYn = answerYn;
     }
 
     public void assignQuestion(Question question) {
