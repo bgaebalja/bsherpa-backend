@@ -25,14 +25,18 @@ public class ErrorReport extends BaseGeneralEntity {
     @Column(nullable = false, length = 200)
     private String content;
 
+    @Column(nullable = false)
+    private int count;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "reporter_id")
     private Users reporter;
 
-    private ErrorReport(Long itemId, String type, String content, Users reporter) {
+    private ErrorReport(Long itemId, String type, String content, int count, Users reporter) {
         this.itemId = itemId;
         this.type = type;
         this.content = content;
+        this.count = count;
         this.reporter = reporter;
     }
 
@@ -41,7 +45,12 @@ public class ErrorReport extends BaseGeneralEntity {
                 FormatConverter.parseToLong(registerErrorReportRequest.getItemId()),
                 registerErrorReportRequest.getType(),
                 registerErrorReportRequest.getContent(),
+                1,
                 reporter
         );
+    }
+
+    public void addCount(int count) {
+        this.count += count;
     }
 }

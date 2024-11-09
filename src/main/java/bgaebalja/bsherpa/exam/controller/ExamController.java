@@ -30,8 +30,11 @@ public class ExamController {
     }
 
     @GetMapping()
-    public ResponseEntity<GetExamsResponse> getExams() {
-        List<Exam> exams = examService.getBsherpaExams();
+    public ResponseEntity<GetExamsResponse> getExams(
+            @RequestParam(value = "email", defaultValue = "") String email,
+            @RequestParam(value = "subjectName", defaultValue = "") String subjectName
+    ) {
+        List<Exam> exams = examService.getExams(email, subjectName);
 
         return ResponseEntity.status(OK).body(GetExamsResponse.from(exams));
     }
