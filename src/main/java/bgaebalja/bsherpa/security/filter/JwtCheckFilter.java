@@ -12,6 +12,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -94,11 +96,16 @@ public class JwtCheckFilter extends OncePerRequestFilter {
 
       filterChain.doFilter(request, response);
 
-    } catch (Exception e) {
-
-      log.error("JWT Check Error", e);
+    } catch (ExpiredJwtException e) {
+      log.error("JWT Expired", e);
       Gson gson = new Gson();
       String msg = gson.toJson(Map.of("error", "ERROR_ACCESS_TOKEN"));
+      response.setContentType(APPLICATION_JSON_VALUE);
+      response.getWriter().write(msg);
+    } catch (Exception e) {
+      log.error("Other JWT Error", e);
+      Gson gson = new Gson();
+      String msg = gson.toJson(Map.of("error", "INVALID_TOKEN"));
       response.setContentType(APPLICATION_JSON_VALUE);
       response.getWriter().write(msg);
     }
