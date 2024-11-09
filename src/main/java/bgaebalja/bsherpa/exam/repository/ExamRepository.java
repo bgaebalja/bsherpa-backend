@@ -18,4 +18,6 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
     Optional<Exam> findByIdAndDeleteYnFalse(Long examId);
 
     List<Exam> findByUserIdAndBookIdAndDeleteYnFalse(Long userId, Long bookId);
+
+    List<Exam> findByUserIdAndDeleteYnFalseOrderByCreatedAtDesc(Long userId);
 }
