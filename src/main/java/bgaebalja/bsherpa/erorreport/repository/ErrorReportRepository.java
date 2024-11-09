@@ -6,4 +6,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ErrorReportRepository extends JpaRepository<ErrorReport, Long> {
     boolean existsByReporterIdAndItemId(@Param("reporter_id") Long reporterId, @Param("item_id") Long itemId);
+
+    int countByItemId(Long itemId);
 }

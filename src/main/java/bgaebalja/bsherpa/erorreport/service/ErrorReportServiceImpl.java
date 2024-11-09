@@ -7,9 +7,11 @@ import bgaebalja.bsherpa.erorreport.repository.ErrorReportRepository;
 import bgaebalja.bsherpa.exception.UserNotFoundException;
 import bgaebalja.bsherpa.file.domain.AddFileRequest;
 import bgaebalja.bsherpa.file.service.FileService;
+import bgaebalja.bsherpa.question.service.QuestionService;
 import bgaebalja.bsherpa.user.domain.Users;
 import bgaebalja.bsherpa.user.repository.UserRepository;
 import bgaebalja.bsherpa.util.FormatConverter;
+import bgaebalja.bsherpa.util.FormatValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import static org.springframework.transaction.annotation.Propagation.NESTED;
 @RequiredArgsConstructor
 public class ErrorReportServiceImpl implements ErrorReportService {
     private final FileService fileService;
+    private final QuestionService questionService;
     private final UserRepository userRepository;
     private final ErrorReportRepository errorReportRepository;
 
@@ -34,15 +37,22 @@ public class ErrorReportServiceImpl implements ErrorReportService {
                 .orElseThrow(
                         () -> new UserNotFoundException(String.format(USER_NOT_FOUND_EXCEPTION_MESSAGE, userEmail))
                 );
-        String itemId = registerErrorReportRequest.getItemId();
-        if (errorReportRepository.existsByReporterIdAndItemId(user.getId(), FormatConverter.parseToLong(itemId))) {
+        Long itemId = FormatConverter.parseToLong(registerErrorReportRequest.getItemId());
+        if (errorReportRepository.existsByReporterIdAndItemId(user.getId(), itemId)) {
             throw new DuplicatedErrorReportException(
                     String.format(DUPLICATED_ERROR_REPORT_EXCEPTION_MESSAGE, user.getUserId(), itemId)
             );
         }
-        ;
-        Long id = errorReportRepository.save(ErrorReport.from(registerErrorReportRequest, user)).getId();
 
+        ErrorReport errorReport = ErrorReport.from(registerErrorReportRequest, user);
+        int errorReportCount = errorReportRepository.countByItemId(itemId);
+
+        if (FormatValidator.hasValue(errorReportCount)) {
+            errorReport.addCount(errorReportCount);
+        }
+
+        Long id = errorReportRepository.save(errorReport).getId();
         fileService.createFile(AddFileRequest.from(registerErrorReportRequest, id.toString()));
+        questionService.addErrorReportCount(itemId);
     }
 }

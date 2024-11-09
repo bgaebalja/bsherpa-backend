@@ -7,6 +7,8 @@ import lombok.Getter;
 
 @Getter
 public class GetExamResponse {
+    private static final String DEFAULT_TIME_LIMIT = "60";
+
     private Long id;
     private String username;
     private String className;
@@ -34,18 +36,14 @@ public class GetExamResponse {
     }
 
     public static GetExamResponse from(Exam exam) {
-        // TODO: 시간 제한 학년/과목 별로 연동
-        // TODO: 회원에 추가되는 학교 등급과 학년 정보 연동
         return GetExamResponse.builder()
                 .id(exam.getId())
                 .username(exam.getUser().getUsername())
                 .className(exam.getUser().getClazz())
                 .grade(exam.getUser().getGrade())
-                .className("중")
-                .grade("3")
                 .examName(exam.getExamName())
                 .subjectName(exam.getBook().getSubject().getName())
-                .timeLimit("60")
+                .timeLimit(DEFAULT_TIME_LIMIT)
                 .size(exam.getCollections().stream().map(Collection::getQuestionCount).reduce(0, Integer::sum))
                 .getCollectionsResponse(GetCollectionsResponse.from(exam.getCollections()))
                 .build();
