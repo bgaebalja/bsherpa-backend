@@ -60,6 +60,14 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> getExamByUser(String email) {
         Long userId = userRepository.findByUserId(email).get().getId();
 
-        return examRepository.findByUserIdAndDeleteYnFalse(userId);
+//        List<Exam> examList = examRepository.findByUserIdAndDeleteYnFalse(userId);
+//        System.out.println("examList: "+examList);
+//        System.out.println("collection: "+examList.get(0).getCollections().get(0));
+//        System.out.println("passage: "+examList.get(0).getCollections().get(0).getPassages());
+//        //
+//        System.out.println("question: "+examList.get(0).getCollections().get(0).getQuestions());
+//        System.out.println("get question test: "+examList.get(0).getCollections().get(0).getQuestions().get(0).getAnswer());
+
+        return examRepository.findByUserIdAndDeleteYnFalseOrderByCreatedAtDesc(userId);
     }
 }
