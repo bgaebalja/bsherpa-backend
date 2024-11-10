@@ -10,6 +10,7 @@ public class GetExamResponse {
     private static final String DEFAULT_TIME_LIMIT = "60";
 
     private Long id;
+    private String bookId;
     private String username;
     private String className;
     private String grade;
@@ -21,10 +22,11 @@ public class GetExamResponse {
 
     @Builder
     private GetExamResponse(
-            Long id, String username, String className, String grade, String examName,
+            Long id, String bookId,String username, String className, String grade, String examName,
             String subjectName, String timeLimit, int size, GetCollectionsResponse getCollectionsResponse
     ) {
         this.id = id;
+        this.bookId = bookId;
         this.username = username;
         this.className = className;
         this.grade = grade;
@@ -38,6 +40,7 @@ public class GetExamResponse {
     public static GetExamResponse from(Exam exam) {
         return GetExamResponse.builder()
                 .id(exam.getId())
+                .bookId(exam.getBook().getBookId())
                 .username(exam.getUser().getUsername())
                 .className(exam.getUser().getClazz())
                 .grade(exam.getUser().getGrade())
