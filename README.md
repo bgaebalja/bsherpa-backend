@@ -53,7 +53,6 @@
 - React
 - Redux
 - Axios
-- Vite
   <br>
 
 ## Back-End
@@ -68,6 +67,7 @@
 ## DevOps
 
 ### Build
+- Vite
 - Gradle
 
 ### Database
