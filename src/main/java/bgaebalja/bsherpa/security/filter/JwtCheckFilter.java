@@ -2,6 +2,7 @@ package bgaebalja.bsherpa.security.filter;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+import bgaebalja.bsherpa.exception.JwtCustomException;
 import bgaebalja.bsherpa.user.domain.UserDTO;
 import bgaebalja.bsherpa.util.JwtUtil;
 import com.google.gson.Gson;
@@ -36,19 +37,7 @@ public class JwtCheckFilter extends OncePerRequestFilter {
     }
     if (path.equals("/books")) {
       return true;
-    }/*
-    if (path.startsWith("/questions")) {
-      return true;
     }
-    if (path.startsWith("/question-images")) {
-      return true;
-    }
-    if (path.startsWith("/exams")) {
-      return true;
-    }
-    if (path.startsWith("/step1/chapters")) {
-      return true;
-    }*/
     if (path.startsWith("/error-reports")) {
       return true;
     }
@@ -94,7 +83,7 @@ public class JwtCheckFilter extends OncePerRequestFilter {
 
       filterChain.doFilter(request, response);
 
-    } catch (Exception e) {
+    } catch (JwtCustomException e) {
 
       log.error("JWT Check Error", e);
       Gson gson = new Gson();

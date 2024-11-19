@@ -94,6 +94,6 @@ public class ExamServiceImpl implements ExamService {
     public List<Exam> getExamByUser(String email) {
         Long userId = userRepository.findByUserId(email).get().getId();
 
-        return examRepository.findByUserIdAndDeleteYnFalse(userId);
+        return examRepository.findByUserIdAndDeleteYnFalseOrderByCreatedAtDesc(userId);
     }
 }
