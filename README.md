@@ -1,4 +1,4 @@
-![bsherpa-architecture](https://github.com/user-attachments/assets/3e265f6b-24b8-4069-8d4a-3e9ad7dfbb06)![bsherpa-architecture](https://github.com/user-attachments/assets/d2314a3f-17a8-4b0d-9358-1f1a378329e5)# ![icons-exam-30](https://github.com/user-attachments/assets/2d2249d7-5140-4556-8f7f-9c335ca660a3) 문제은행 서비스 B셀파 Server<br><br>
+# ![icons-exam-30](https://github.com/user-attachments/assets/2d2249d7-5140-4556-8f7f-9c335ca660a3) 문제은행 서비스 B셀파 Server<br><br>
 
 ## 📋 프로젝트 설명
 - B개발자팀 프로젝트 B셀파
@@ -41,7 +41,7 @@
   <br><br>
 
 ## 🗼 Architecture
-![bsherpa-architecture](https://github.com/user-attachments/assets/99dc6d45-85d5-4c32-b3fc-23af1f6e2460)
+![bsherpa-architecture](https://github.com/user-attachments/assets/23a060f9-59e5-4046-97e9-3b54fb4d0069)
 <br><br>
 
 ## 🗄️ ERD
